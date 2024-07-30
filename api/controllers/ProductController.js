@@ -1,6 +1,7 @@
 const productmodel = require("../models/ProductModel");
 
 const PostProductdata = async (req, res) => {
+
   console.log("Uploaded file info:------------", req.file);
   console.log("Form data:", req.body);
     try {

@@ -14,12 +14,12 @@ const ProductModel = new mongoose.Schema({
     type: [String],
     default: ["red", "black"],
   },
-  // Img: {
-  //   type: String,
-  // },
+  Img: {
+    type: String,
+  },
   size: {
     type: String,
-    enum: ["s", "m", "l", "xl", "xxl"],
+    default: ["S", "M", "L", "XL", "XXL"],
   },
   category: String,
 });

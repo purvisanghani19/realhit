@@ -11,10 +11,7 @@ app.use(express.json());
 app.use(cors());
 app.use("/product", router);
 
-// app.post("/api/uplods", upload.single("avatar"), (req, res) => {
-//   res.json(req.file);
-//   res.send("uploded sucsessfully");
-// });
+
 
 //port------------------------
 connectdb()
