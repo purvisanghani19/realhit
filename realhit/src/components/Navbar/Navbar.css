@@ -1,0 +1,20 @@
+.fade_in_input {
+  animation: none;
+}
+.custom-close-icon {
+  color: white !important;
+}
+
+/* .offcanvas-backdrop.show {
+  opacity: 0;
+}
+.offcanvas.offcanvas-top {
+  left: 45px;
+  width: 80%;
+} */
+@media (max-width: 575px) {
+  .logo_img {
+    width: 125px;
+    height: 17px;
+  }
+}
