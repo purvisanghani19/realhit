@@ -12,13 +12,13 @@ const ProductModel = new mongoose.Schema({
   sale: Boolean,
   color: {
     type: [String],
-    default: ["red", "black"],
+    default: ["black"],
   },
   Img: {
     type: String,
   },
   size: {
-    type: String,
+    type: [String],
     default: ["S", "M", "L", "XL", "XXL"],
   },
   category: String,
