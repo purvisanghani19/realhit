@@ -4,10 +4,11 @@ import Gifbanner from "../../img/banner/Main_Banner_GIF.jpg";
 import SecoundGifbanner from "../../img/banner/secound_GIF.jpg";
 import thirdGifbanner from "../../img/banner/third_GIF.jpg";
 import fourthGifbanner from "../../img/banner/fourth_GIF.jpg";
-import hoodies from "../../img/collection_img/Hoodie_Collection.jpg";
-import mug from "../../img/collection_img/mug_collection.jpg";
-import oversize from "../../img/collection_img/oversized_collection.jpg";
-import totebag from "../../img/collection_img/totebag_collation.jpg";
+// import hoodies from "../../img/collection_img/Hoodie_Collection.jpg";
+// import mug from "../../img/collection_img/mug_collection.jpg";
+// import oversize from "../../img/collection_img/oversized_collection.jpg";
+// import totebag from "../../img/collection_img/totebag_collation.jpg";
+import imgs from "../../img/collection_img/Imgcontainer";
 import right from "../../svg/right.svg";
 import { RiShare2Line } from "react-icons/ri";
 import addcartImg from "../../img/12.jpg";
@@ -17,13 +18,14 @@ import Container4 from "../Containers/Container4";
 import Banner from "../Containers/Banner";
 import "./home.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
   const [Product, setProduct] = useState([]);
+  const [latestPro, setLatestPro] = useState({});
 
-  console.log("product", Product);
+  console.log("latestPro---", latestPro);
 
   const getdata = async () => {
     try {
@@ -41,6 +43,16 @@ const Home = () => {
     getdata();
   }, []);
 
+  useEffect(() => {
+    if (Product.length > 1) {
+      setLatestPro(Product[1]);
+    }
+  }, [Product]);
+
+  const Viewproduct = (item) => {
+    navigate("/view-product", { state: { product: item } });
+  };
+
   return (
     <>
       <main>
@@ -53,70 +65,24 @@ const Home = () => {
         {/*------------------t-shirt container start------------ */}
         <div className="container py-4 py-sm-5 ">
           <div className="row g-2 g-md-3 row-cols-2 row-cols-lg-4">
-            <div className="col">
-              <div className="card_media">
-                <div className="card_img">
-                  <img src={hoodies} alt="hoodies" className="w-100" />
+            {imgs?.map((item, index) => (
+              <div role="button" key={index} className="col">
+                <div className="card_media">
+                  <div className="card_img">
+                    <img src={item.img} alt="hoodies" className="w-100" />
+                  </div>
+                  <span className="text-uppercase fw-bold py-2 d-block">
+                    {item.name}
+                    <img
+                      src={right}
+                      alt="right arrow"
+                      width={16}
+                      className="mx-1"
+                    />
+                  </span>
                 </div>
-                <span className="text-uppercase fw-bold py-2 d-block">
-                  hoodies
-                  <img
-                    src={right}
-                    alt="right arrow"
-                    width={16}
-                    className="mx-1"
-                  />
-                </span>
               </div>
-            </div>
-            <div className="col">
-              <div className="card_media">
-                <div className="card_img ">
-                  <img src={oversize} alt="hoodies" className="w-100" />
-                </div>
-                <span className="text-uppercase fw-bold py-2 d-block">
-                  oversize t-shirt
-                  <img
-                    src={right}
-                    alt="right arrow"
-                    width={16}
-                    className="mx-1"
-                  />
-                </span>
-              </div>
-            </div>
-            <div className="col">
-              <div className="card_media">
-                <div className="card_img d-flex ">
-                  <img src={mug} alt="hoodies" className="w-100" />
-                </div>
-                <span className="text-uppercase fw-bold py-2 d-block">
-                  mug
-                  <img
-                    src={right}
-                    alt="right arrow"
-                    width={16}
-                    className="mx-1"
-                  />
-                </span>
-              </div>
-            </div>
-            <div className="col">
-              <div className="card_media">
-                <div className="card_img d-flex">
-                  <img src={totebag} alt="hoodies" className="w-100" />
-                </div>
-                <span className="text-uppercase fw-bold py-2 d-block">
-                  tote bag
-                  <img
-                    src={right}
-                    alt="right arrow"
-                    width={16}
-                    className="mx-1"
-                  />
-                </span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
         {/*------------------t-shirt container end------------ */}
@@ -130,7 +96,7 @@ const Home = () => {
           <div className="row row-cols-1 row-cols-md-2 my-3">
             <div className="cart-parent-container">
               <img
-                src={addcartImg}
+                src={`http://localhost:5500${latestPro.Img}`}
                 alt="person in t-shirt"
                 className=" rounded-3 img-fluid cart-child-image "
               />
@@ -139,10 +105,10 @@ const Home = () => {
               <span className="text-uppercase fw-semibold realhit py-2 d-block">
                 RealHit
               </span>
-              <h4 className="fw-bold fs-1 py-2">Okaiii Okaiii Tshirt</h4>
+              <h4 className="fw-bold fs-1 py-2">{latestPro.name}</h4>
               <div className="gap-4 d-flex ">
                 <span className="text-decoration-line-through">Rs.1299.00</span>
-                <span className="fw-bold">Rs.799.00</span>
+                <span className="fw-bold">Rs.{latestPro.price}.00</span>
                 <span className=" badge border rounded-5 border text-black  ">
                   sale
                 </span>
@@ -158,35 +124,30 @@ const Home = () => {
               <div className=" ">
                 <span className="d-block font-sans">color</span>
                 <div className="d-flex flex-wrap gap-2">
-                  <button className="btn px-3  px-sm-4  border-black rounded-0 bg-black text-white text-uppercase ">
-                    black
-                  </button>
-                  <button className="btn px-3  px-sm-4  border-black rounded-0  text-uppercase">
+                  {latestPro?.color?.map((item, index) => (
+                    <button className="btn px-3  px-sm-4  border-black rounded-0 bg-black text-white text-uppercase ">
+                      {item}
+                    </button>
+                  ))}
+                  {/* <button className="btn px-3  px-sm-4  border-black rounded-0  text-uppercase">
                     navy blue
                   </button>
                   <button className="btn px-3  px-sm-4  border-black rounded-0  text-uppercase">
                     red
-                  </button>
+                  </button> */}
                 </div>
               </div>
               <div className="my-3">
                 <span className="d-block font-sans ">size</span>
                 <div className="d-flex flex-wrap gap-2">
-                  <button className="btn px-4  fs-semibold  border-black rounded-0 bg-black text-white text-uppercase">
-                    s
-                  </button>
-                  <button className="btn px-4  fs-semibold border-black rounded-0  text-uppercase">
+                  {latestPro?.size?.map((item, index) => (
+                    <button className="btn px-3  px-sm-4  border-black rounded-0 bg-black text-white text-uppercase ">
+                      {item}
+                    </button>
+                  ))}
+                  {/* <button className="btn px-4  fs-semibold border-black rounded-0  text-uppercase">
                     m
-                  </button>
-                  <button className="btn px-4  fs-semibold border-black rounded-0  text-uppercase">
-                    l
-                  </button>
-                  <button className="btn px-4  fs-semibold border-black rounded-0  text-uppercase">
-                    xl
-                  </button>
-                  <button className="btn px-4  fs-semibold  border-black rounded-0  text-uppercase">
-                    xxl
-                  </button>
+                  </button> */}
                 </div>
               </div>
               <div className="my-3">
@@ -222,10 +183,11 @@ const Home = () => {
                     share <RiShare2Line />
                   </span>
                 </a>
-                <a href="#" className="text-black text link-underline-light">
+                <div className="text-black text link-underline-light">
                   <span
                     className="px-sm-4"
-                    onClick={() => navigate("/view-product")}
+                    role="button"
+                    onClick={() => Viewproduct(latestPro._id)}
                   >
                     view full details
                     <img
@@ -235,7 +197,7 @@ const Home = () => {
                       className="mx-1"
                     />
                   </span>
-                </a>
+                </div>
               </div>
             </div>
           </div>
@@ -263,7 +225,7 @@ const Home = () => {
         {/*------------------- third_GIF end----------------------- */}
 
         {/*------------------Hoddie container start------------ */}
-        <Container5 />
+        <Container5 data={Product} />
         {/*------------------Hoddie container end------------ */}
 
         {/*------------------- fourth_GIF start----------------------- */}

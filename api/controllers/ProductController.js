@@ -3,7 +3,6 @@ const productmodel = require("../models/ProductModel");
 const PostProductdata = async (req, res) => {
   // console.log("Uploaded file info:------------", req.file);
   // console.log("Form data:", req.body);
-
   try {
     const size = req.body.size ? req.body.size.split(",") : undefined;
     const colorr = req.body.color ? req.body.color.split(",") : undefined;
@@ -44,4 +43,17 @@ const GetProductdata = async (req, res) => {
   }
 };
 
-module.exports = { GetProductdata, PostProductdata };
+const GetsingleProduct = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const data = await productmodel.findById(id);
+    // console.log("data", data);
+    res.status(200).json({ data });
+  } catch (error) {
+    console.log("error", error);
+    res.send({ result: { error } });
+  }
+};
+
+module.exports = { GetProductdata, PostProductdata, GetsingleProduct };

@@ -10,6 +10,7 @@ import logo from "../../logo/The_Realhit_Store_Logo_L.png";
 import "./Navbar.css";
 import "animate.css";
 import { GoCheck } from "react-icons/go";
+import { NavLink } from "react-router-dom";
 // import tshirt6 from "../img/tshirt_colleaction/6.jpg";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -26,12 +27,12 @@ const Navbar = () => {
                 id="exampleFormControlInput1"
                 placeholder="name@example.com"
               />
-              <a href="#">
+              <NavLink to="/">
                 <IoCloseOutline
                   className="text-white fs-3 mx-3 "
                   onClick={() => setOpen(false)}
                 />
-              </a>
+              </NavLink>
             </div>
           ) : (
             <>
@@ -71,25 +72,43 @@ const Navbar = () => {
                 <div className="offcanvas-body py-3 px-4">
                   <div>
                     <ul className="text-uppercase list-unstyled fs-5 ">
-                      <a href="# " className="text-decoration-none link-light">
+                      <NavLink
+                        to="/"
+                        className="text-decoration-none link-light"
+                      >
                         <li className="list-list-group-item py-2">Home</li>
-                      </a>
-                      <a href="# " className="text-decoration-none link-light">
+                      </NavLink>
+
+                      <NavLink
+                        to="/colleaction/tshirt"
+                        className="text-decoration-none link-light"
+                      >
                         <li className="list-list-group-item py-2">T-shirts</li>
-                      </a>
-                      <a href="# " className="text-decoration-none link-light">
+                      </NavLink>
+                      <NavLink
+                        to="/colleaction/oversized-t-shirt"
+                        className="text-decoration-none link-light"
+                      >
                         <li className="list-list-group-item py-2">
                           oversized t-shirts
                         </li>
-                      </a>
-                      <a href="# " className="text-decoration-none link-light">
+                      </NavLink>
+
+                      <NavLink
+                        to="/colleaction/hoodies"
+                        className="text-decoration-none link-light"
+                      >
                         <li className="list-list-group-item py-2">hoodies</li>
-                      </a>
-                      <a href="# " className="text-decoration-none link-light">
+                      </NavLink>
+
+                      <NavLink
+                        to="/colleaction/sweatshirts"
+                        className="text-decoration-none link-light"
+                      >
                         <li className="list-list-group-item py-2">
                           sweatshirts
                         </li>
-                      </a>
+                      </NavLink>
                     </ul>
                   </div>
                 </div>
@@ -104,7 +123,7 @@ const Navbar = () => {
                 </div>
               </div>
 
-              <a href="/">
+              <NavLink to="/">
                 <img
                   src={logo}
                   width={225}
@@ -112,15 +131,15 @@ const Navbar = () => {
                   alt="logo"
                   className="logo_img"
                 />
-              </a>
+              </NavLink>
               <div className="d-flex align-items-center gap-2">
-                <a href="#">
+                <NavLink to="/">
                   <CiSearch
                     className="text-white fs-3 animation"
                     onClick={() => setOpen(true)}
                   />
-                </a>
-                <a href="/cart">
+                </NavLink>
+                <NavLink to="/cart">
                   <img
                     src={cart}
                     width={45}
@@ -128,7 +147,7 @@ const Navbar = () => {
                     alt="cart"
                     className="animation"
                   />
-                </a>
+                </NavLink>
               </div>
             </>
           )}
@@ -193,9 +212,9 @@ const Navbar = () => {
               >
                 checkout
               </button>
-              <a href="#" className="text-white mt-2">
+              <NavLink to="#" className="text-white mt-2">
                 <span>contiune shopping</span>
-              </a>
+              </=>
             </div>
           </div>
         </div>

@@ -1,7 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Container5 = ({ data }) => {
   console.log("data", data);
+  const navigate = useNavigate();
+
+  const Viewproduct = (item) => {
+    navigate("/view-product", { state: { product: item } });
+  };
+
   return (
     <>
       {/*------------------t-shirt container start------------ */}
@@ -9,7 +16,12 @@ const Container5 = ({ data }) => {
         <div className="row row-cols-2 row-cols-lg-5 gx-2 gy-4 gx-lg-3 gy-lg-5 px-lg-4 pb-5">
           {data?.slice(0, 10).map((item, index) => {
             return (
-              <div className="col" key={index}>
+              <div
+                role="button"
+                onClick={() => Viewproduct(item._id)}
+                className="col"
+                key={index}
+              >
                 <div className="img-container">
                   <img
                     src={`http://localhost:5500${item.Img}`}
