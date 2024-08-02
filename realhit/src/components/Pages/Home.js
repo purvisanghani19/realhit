@@ -25,7 +25,7 @@ const Home = () => {
   const [Product, setProduct] = useState([]);
   const [latestPro, setLatestPro] = useState({});
 
-  console.log("latestPro---", latestPro);
+  // console.log("latestPro---", latestPro);
 
   const getdata = async () => {
     try {
@@ -125,7 +125,10 @@ const Home = () => {
                 <span className="d-block font-sans">color</span>
                 <div className="d-flex flex-wrap gap-2">
                   {latestPro?.color?.map((item, index) => (
-                    <button className="btn px-3  px-sm-4  border-black rounded-0 bg-black text-white text-uppercase ">
+                    <button
+                      key={index}
+                      className="btn px-3  px-sm-4  border-black rounded-0 bg-black text-white text-uppercase "
+                    >
                       {item}
                     </button>
                   ))}
@@ -141,7 +144,10 @@ const Home = () => {
                 <span className="d-block font-sans ">size</span>
                 <div className="d-flex flex-wrap gap-2">
                   {latestPro?.size?.map((item, index) => (
-                    <button className="btn px-3  px-sm-4  border-black rounded-0 bg-black text-white text-uppercase ">
+                    <button
+                      key={index}
+                      className="btn px-3  px-sm-4  border-black rounded-0 bg-black text-white text-uppercase "
+                    >
                       {item}
                     </button>
                   ))}

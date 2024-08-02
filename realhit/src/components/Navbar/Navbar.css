@@ -12,6 +12,7 @@
   left: 45px;
   width: 80%;
 } */
+
 @media (max-width: 575px) {
   .logo_img {
     width: 125px;

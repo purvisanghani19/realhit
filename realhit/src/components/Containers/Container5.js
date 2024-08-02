@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Container5 = ({ data }) => {
-  console.log("data", data);
+  // console.log("data", data);
   const navigate = useNavigate();
 
   const Viewproduct = (item) => {

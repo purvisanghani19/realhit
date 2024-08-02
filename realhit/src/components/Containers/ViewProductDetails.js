@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import addcartImg from "../../img/12.jpg";
 import { RiShare2Line } from "react-icons/ri";
 import CustomerReviw from "./CustomerReviw";
 import ProductContainer from "./ProductContainer";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import CartContex from "../../contexts/AddToCart/CartContext";
 
 const ViewProductDetails = () => {
   const location = useLocation();
   const { product } = location.state;
+  const context = useContext(CartContex);
 
   const [singleProduct, setsingleProduct] = useState({});
-  console.log("singleProduct", singleProduct);
   const [Product, setProduct] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [inputvalue, inputsetvalue] = useState({
+    color: "",
+    size: "",
+    quantity: 1,
+  });
 
   useEffect(() => {
     const getSingleProduct = async () => {
@@ -21,9 +27,14 @@ const ViewProductDetails = () => {
         const data = await axios.get(
           `http://localhost:5500/product/get-single-product/${product}`
         );
-        console.log("data", data?.data);
+        // console.log("data", data?.data);
         if (data.status === 200) {
           setsingleProduct(data?.data?.data);
+          inputsetvalue((prevalue) => ({
+            ...prevalue,
+            color: data?.data?.data?.color?.[0] || "",
+            size: data?.data?.data?.size?.[0] || "",
+          }));
         }
       } catch (error) {
         console.log(error);
@@ -56,6 +67,21 @@ const ViewProductDetails = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const addtocartitem = () => {
+    context.addTocart({ ...singleProduct, ...inputvalue });
+    window.scrollTo(0, 0);
+  };
+
+  // console.log("value-----", inputvalue);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    inputsetvalue((prevalue) => ({
+      ...prevalue,
+      [name]: value,
+    }));
+  };
 
   return (
     <div className="container-lg py-4">
@@ -99,9 +125,11 @@ const ViewProductDetails = () => {
               name="color"
               id="color"
               className="text-black py-3 p-3 border-black rounded-0 text-uppercase w-50"
+              onChange={handleChange}
+              value={inputvalue.color}
             >
               {singleProduct?.color?.map((item, index) => (
-                <option key={index} value={item}>
+                <option key={index} name="color" value={item}>
                   {item}
                 </option>
               ))}
@@ -113,6 +141,8 @@ const ViewProductDetails = () => {
               name="size"
               id="size"
               className="text-black py-3 p-3 border-black rounded-0 text-uppercase w-50"
+              value={inputvalue.size}
+              onChange={handleChange}
             >
               {singleProduct?.size?.map((item, index) => (
                 <option key={index} value={item}>
@@ -121,7 +151,7 @@ const ViewProductDetails = () => {
               ))}
             </select>
           </div>
-          <div className="my-3">
+          {/* <div className="my-3">
             <span
               className="d-block font-sans"
               style={{ fontSize: "15px", color: "black" }}
@@ -129,18 +159,37 @@ const ViewProductDetails = () => {
               Quantity
             </span>
             <div className="btn py-2 px-2 fs-semibold border-black rounded-0 text-black text-uppercase gap-4">
-              <span role="button" className="px-3 py-3">
+              <span
+                name="quantity"
+                onChange={handleChange}
+                value={inputvalue.quantity}
+                onClick={() => context.removeitem()}
+                role="button"
+                className="px-3 py-3"
+              >
                 -
               </span>
-              <span className="px-3 py-3">1</span>
-              <span role="button" className="px-3 py-3">
+              <span className="px-3 py-3">{context.increment}</span>
+              <span
+                name="quantity"
+                onChange={handleChange}
+                value={inputvalue.quantity}
+                onClick={() => context.plusitem()}
+                role="button"
+                className="px-3 py-3"
+              >
                 +
               </span>
             </div>
-          </div>
+          </div> */}
 
           <div className="d-flex flex-column">
-            <button className="btn w-100 py-2 pt-2 pb-2 my-1 border-black rounded-0 text-black">
+            <button
+              onClick={() => {
+                addtocartitem();
+              }}
+              className="btn w-100 py-2 pt-2 pb-2 my-1 border-black rounded-0 text-black"
+            >
               Add to cart
             </button>
             <button className="btn w-100 py-2 pt-2 pb-2 my-1 border-none rounded-0 text-black shadow p-3 mb-5 bg-white">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { CiMenuBurger } from "react-icons/ci";
 import { IoCloseOutline } from "react-icons/io5";
@@ -11,9 +11,12 @@ import "./Navbar.css";
 import "animate.css";
 import { GoCheck } from "react-icons/go";
 import { NavLink } from "react-router-dom";
-// import tshirt6 from "../img/tshirt_colleaction/6.jpg";
+import CartContex from "../../contexts/AddToCart/CartContext";
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+
+  const context = useContext(CartContex);
 
   return (
     <>
@@ -140,85 +143,29 @@ const Navbar = () => {
                   />
                 </NavLink>
                 <NavLink to="/cart">
-                  <img
-                    src={cart}
-                    width={45}
-                    height={45}
-                    alt="cart"
-                    className="animation"
-                  />
+                  <div className="">
+                    <img
+                      src={cart}
+                      width={45}
+                      height={45}
+                      alt="cart"
+                      className="animation position-relative d-block"
+                    />
+                    {context?.AddtoCart.length > 0 && (
+                      <p
+                        className="badge badge-pill bg-danger position-absolute"
+                        style={{ top: "27px", right: "36px" }}
+                      >
+                        {context?.AddtoCart.length}
+                      </p>
+                    )}
+                  </div>
                 </NavLink>
               </div>
             </>
           )}
         </div>
       </nav>
-
-      {/* <div className="position-absolute w-25 custom_hight end-0 z-1  ">
-        <button
-          class="btn btn-primary"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasTop"
-          aria-controls="offcanvasTop"
-        >
-          Toggle top offcanvas
-        </button>
-
-        <div
-          className="offcanvas offcanvas-top position-absolute top-0 h-auto rounded-bottom-4 bg-black text-white"
-          tabIndex="-1"
-          id="offcanvasTop"
-          aria-labelledby="offcanvasTopLabel"
-        >
-          <div className="offcanvas-header p-4">
-            <span id="offcanvasTopLabel">
-              <GoCheck /> Item added to your cart
-            </span>
-            <button
-              type="button"
-              className="btn-close btn-close-white "
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div className="offcanvas-body p-4">
-            <div className="d-flex ">
-              <img
-                // src={tshirt6}
-                alt="add to cart"
-                className="img-fluid w-25 h-25 rounded-3"
-              />
-              <div className="text-white px-3">
-                <h6>Aaj Chalegi Daaru Hoodie</h6>
-                <h6>color:white</h6>
-                <h6>size:s</h6>
-              </div>
-            </div>
-            <div className="d-flex flex-column justify-content-center align-items-center w-100">
-              <button
-                style={{ letterSpacing: "1px" }}
-                className="border border-light w-100 mt-3 py-2  bg-transparent text-white"
-              >
-                view cart(2)
-              </button>
-              <button
-                style={{
-                  letterSpacing: "1px",
-                  backgroundColor: "#EBF4F6",
-                  color: "#0000FF",
-                }}
-                className="border-0 w-100 mt-2 py-2  "
-              >
-                checkout
-              </button>
-              <NavLink to="#" className="text-white mt-2">
-                <span>contiune shopping</span>
-              </=>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </>
   );
 };
