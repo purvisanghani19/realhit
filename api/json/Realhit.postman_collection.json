@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "9044007c-3b48-4ab9-986e-2c7ce7b96681",
+		"name": "Realhit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36270238"
+	},
+	"item": [
+		{
+			"name": "post-pdata",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Tshirt",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "1199.00",
+							"type": "text"
+						},
+						{
+							"key": "color",
+							"value": "white,black,beige,lavender",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "tshirt",
+							"type": "text"
+						},
+						{
+							"key": "Img",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "size",
+							"value": "s,m",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:5500/product/upload",
+					"host": [
+						"localhost"
+					],
+					"port": "5500",
+					"path": [
+						"product",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-pdata",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5500/product/get",
+					"host": [
+						"localhost"
+					],
+					"port": "5500",
+					"path": [
+						"product",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-single-product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5500/product/get-single-product",
+					"host": [
+						"localhost"
+					],
+					"port": "5500",
+					"path": [
+						"product",
+						"get-single-product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userRegister",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"dipali\",\r\n    \"email\":\"dipali12@gmail.com\",\r\n    \"password\":\"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5500/user/register",
+					"host": [
+						"localhost"
+					],
+					"port": "5500",
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

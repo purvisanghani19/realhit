@@ -5,18 +5,22 @@ import { IoCloseOutline } from "react-icons/io5";
 import { SiInstagram } from "react-icons/si";
 import { GrYoutube } from "react-icons/gr";
 import { TfiClose } from "react-icons/tfi";
+import { PiUserCircleLight } from "react-icons/pi";
 import cart from "../../svg/cart.svg";
 import logo from "../../logo/The_Realhit_Store_Logo_L.png";
 import "./Navbar.css";
 import "animate.css";
-import { GoCheck } from "react-icons/go";
 import { NavLink } from "react-router-dom";
-import CartContex from "../../contexts/AddToCart/CartContext";
+import { CartContex, LoginContex } from "../../contexts/Context";
+import UseAvatar from "./UseAvatar";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   const context = useContext(CartContex);
+  const { userDetails } = useContext(LoginContex);
+
+  const newname = userDetails.name ? userDetails.name.charAt(0) : "";
 
   return (
     <>
@@ -154,13 +158,56 @@ const Navbar = () => {
                     {context?.AddtoCart.length > 0 && (
                       <p
                         className="badge badge-pill bg-danger position-absolute"
-                        style={{ top: "27px", right: "36px" }}
+                        style={{ top: "27px", right: "72px" }}
                       >
                         {context?.AddtoCart.length}
                       </p>
                     )}
                   </div>
                 </NavLink>
+
+                <div className="nav-item dropdown">
+                  {userDetails?.name ? (
+                    <div
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      // className="border-0  bg-success fs-bold rounded-5 d-flex justify-content-center align-items-center text-uppercase "
+                      // style={{ padding: "7px 14px", fontSize: "16px" }}
+                    >
+                      {/* {newname[0]} */}
+                      <UseAvatar name={newname} />
+                    </div>
+                  ) : (
+                    <PiUserCircleLight
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      className="text-white fs-3 nav-link dropdown-toggle"
+                    />
+                  )}
+
+                  <ul className="dropdown-menu dropdown-menu-end mt-2">
+                    <li>
+                      <NavLink
+                        to="/login"
+                        className="dropdown-item bg-white text-black"
+                        type="button"
+                      >
+                        Login
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/register"
+                        className="dropdown-item bg-white text-black"
+                        type="button"
+                      >
+                        Sign up
+                      </NavLink>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </>
           )}

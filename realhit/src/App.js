@@ -11,7 +11,9 @@ import PageNotFound from "./components/Pages/PageNotFound";
 import Hoddies from "./components/Pages/Colleaction/Hoddies";
 import Sweatshirts from "./components/Pages/Colleaction/Sweatshirts";
 import OversizeTshirt from "./components/Pages/Colleaction/OversizeTshirt";
-
+import RegisterModel from "../src/components/Auth/RegisterModel";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <>
@@ -19,6 +21,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
+        {/* <Route path="/login" element={<Cart />}></Route> */}
+        <Route path="/register" element={<RegisterModel />}></Route>
         <Route path="/view-product" element={<ViewProductDetails />}></Route>
         <Route path="/colleaction/tshirt" element={<Tshirts />}></Route>
         <Route path="/colleaction/hoodies" element={<Hoddies />}></Route>
@@ -30,9 +34,12 @@ function App() {
           path="colleaction/oversized-t-shirt"
           element={<OversizeTshirt />}
         ></Route>
+
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
       <Footer />
+
+      <ToastContainer />
     </>
   );
 }

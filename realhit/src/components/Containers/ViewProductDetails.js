@@ -5,7 +5,7 @@ import CustomerReviw from "./CustomerReviw";
 import ProductContainer from "./ProductContainer";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import CartContex from "../../contexts/AddToCart/CartContext";
+import { CartContex } from "../../contexts/Context";
 
 const ViewProductDetails = () => {
   const location = useLocation();

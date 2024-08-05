@@ -1,0 +1,227 @@
+[{
+  "_id": {
+    "$oid": "66aa06357af5ded04604abd2"
+  },
+  "name": "Enjoy The Wind Oversized Tshirt",
+  "price": 1199,
+  "color": [
+    "white",
+    "pink",
+    "lavander",
+    "beige",
+    "powderblue",
+    "black"
+  ],
+  "Img": "/uploads/Img_1722418741129.jpg",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "category": "tshirt",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66aa066b7af5ded04604abd4"
+  },
+  "name": "Nightmares Skull Oversized Tshirt",
+  "price": 1199,
+  "color": [
+    "powderblue",
+    "black"
+  ],
+  "Img": "/uploads/Img_1722418795065.jpg",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "category": "tshirt",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66aa06f47af5ded04604abd6"
+  },
+  "name": "Game Over Oversized Tshirt",
+  "price": 1199,
+  "color": [
+    "white",
+    "pink",
+    "black",
+    "beige"
+  ],
+  "Img": "/uploads/Img_1722418932284.jpg",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "category": "tshirt",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66aa07197af5ded04604abd8"
+  },
+  "name": "Evolution Oversized Tshirt",
+  "price": 1199,
+  "color": [
+    "white",
+    "pink",
+    "black",
+    "beige"
+  ],
+  "Img": "/uploads/Img_1722418969350.jpg",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "category": "tshirt",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66aa074e7af5ded04604abda"
+  },
+  "name": "Take Life As It Comes Oversized Tshirt",
+  "price": 1199,
+  "color": [
+    "white",
+    "lavender",
+    "black",
+    "beige"
+  ],
+  "Img": "/uploads/Img_1722419022730.jpg",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "category": "tshirt",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66aa07757af5ded04604abdc"
+  },
+  "name": "Bhoot Se Darr Nahi Lagta Insaan Se Lagta Hai Oversized Tshirt",
+  "price": 1199,
+  "color": [
+    "white",
+    "lavender",
+    "black",
+    "beige"
+  ],
+  "Img": "/uploads/Img_1722419061247.jpg",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "category": "tshirt",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66aa07937af5ded04604abde"
+  },
+  "name": "Dare Gym Kare Oversized Tshirt",
+  "price": 1199,
+  "color": [
+    "white",
+    "black",
+    "beige"
+  ],
+  "Img": "/uploads/Img_1722419091880.jpg",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "category": "tshirt",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66aa07eb7af5ded04604abe2"
+  },
+  "name": "I Am Spiritual Oversized Tshirt",
+  "price": 1199,
+  "color": [
+    "white",
+    "black",
+    "beige",
+    "lavender"
+  ],
+  "Img": "/uploads/Img_1722419179796.jpg",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "category": "tshirt",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66aa082b7af5ded04604abe4"
+  },
+  "name": "Oversized Tshirt",
+  "price": 1199,
+  "color": [
+    "white",
+    "black"
+  ],
+  "Img": "/uploads/Img_1722419243029.jpg",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "category": "tshirt",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66aa08517af5ded04604abe6"
+  },
+  "name": "Uraa Teri Oversized Tshirt",
+  "price": 1199,
+  "color": [
+    "white",
+    "black",
+    "beige",
+    "lavender"
+  ],
+  "Img": "/uploads/Img_1722419281992.jpg",
+  "size": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "category": "tshirt",
+  "__v": 0
+}]

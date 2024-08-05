@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CartContex from "./CartContext";
+import { CartContex } from "../Context";
 import { getProductData, setProductData } from "../../utils/localStorageHelper";
 
 const CartState = (props) => {

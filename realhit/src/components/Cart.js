@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import tshirt7 from "../img/tshirt_colleaction/7.jpg";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import CartContex from "../contexts/AddToCart/CartContext";
+
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import EmptyCart from "../Lotties/EmptyCart.json";
 import { NavLink, useNavigate } from "react-router-dom";
 import { getProductData, setProductData } from "../utils/localStorageHelper";
-
+import { CartContex } from "../contexts/Context";
 const Cart = () => {
   const context = useContext(CartContex);
 
