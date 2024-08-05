@@ -5,10 +5,20 @@ import CartContex from "../contexts/AddToCart/CartContext";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import EmptyCart from "../Lotties/EmptyCart.json";
 import { NavLink, useNavigate } from "react-router-dom";
+import { getProductData, setProductData } from "../utils/localStorageHelper";
+
 const Cart = () => {
   const context = useContext(CartContex);
 
   const navigate = useNavigate();
+
+  // const removeItem = (itemid) => {
+  //   const localdata = getProductData();
+  //   if (localdata) {
+  //     const newdata = localdata.filter((item) => item._id !== itemid._id);
+  //     return newdata;
+  //   }
+  // };
 
   return (
     <>
@@ -38,7 +48,9 @@ const Cart = () => {
             <div className="d-flex justify-content-between align-items-baseline py-5 mt-md-4">
               <span className="fs-2 fw-bold">Your cart</span>
               <a className="text-dark">
-                <span>Continue shopping</span>
+                <span onClick={() => navigate("/colleaction/tshirt")}>
+                  Continue shopping
+                </span>
               </a>
             </div>
 
@@ -104,7 +116,9 @@ const Cart = () => {
                             </span>
                           </div>
                           <div>
-                            <RiDeleteBin6Line />
+                            <RiDeleteBin6Line
+                              onClick={() => context.deleteItemCart(item._id)}
+                            />
                           </div>
                         </div>
                         <div className="col-6 border-black g-0">

@@ -15,7 +15,7 @@ const ViewProductDetails = () => {
   const [singleProduct, setsingleProduct] = useState({});
   const [Product, setProduct] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [inputvalue, inputsetvalue] = useState({
+  const [inputvalue, setInputvalue] = useState({
     color: "",
     size: "",
     quantity: 1,
@@ -30,7 +30,7 @@ const ViewProductDetails = () => {
         // console.log("data", data?.data);
         if (data.status === 200) {
           setsingleProduct(data?.data?.data);
-          inputsetvalue((prevalue) => ({
+          setInputvalue((prevalue) => ({
             ...prevalue,
             color: data?.data?.data?.color?.[0] || "",
             size: data?.data?.data?.size?.[0] || "",
@@ -77,7 +77,7 @@ const ViewProductDetails = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    inputsetvalue((prevalue) => ({
+    setInputvalue((prevalue) => ({
       ...prevalue,
       [name]: value,
     }));

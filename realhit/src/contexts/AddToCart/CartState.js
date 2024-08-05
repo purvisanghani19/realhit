@@ -47,6 +47,15 @@ const CartState = (props) => {
     countTotal();
   };
 
+  const deleteItemCart = (id) => {
+    const localdata = getProductData();
+    if (localdata) {
+      const newdata = localdata.filter((item) => item._id !== id);
+      setProductData(newdata);
+      setAddtoCart(newdata);
+    }
+  };
+
   const countTotal = () => {
     const totalValue = AddtoCart.reduce(
       (acc, item) => acc + (item.quantity ?? 0) * item.price,
@@ -69,7 +78,14 @@ const CartState = (props) => {
   return (
     <>
       <CartContex.Provider
-        value={{ addTocart, AddtoCart, plusitem, removeitem, total }}
+        value={{
+          addTocart,
+          AddtoCart,
+          plusitem,
+          removeitem,
+          total,
+          deleteItemCart,
+        }}
       >
         {props.children}
       </CartContex.Provider>
