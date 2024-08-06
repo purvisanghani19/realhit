@@ -18,7 +18,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   const context = useContext(CartContex);
-  const { userDetails, setuserDetails } = useContext(LoginContex);
+  const { userDetails, setuserDetails, setFormState } = useContext(LoginContex);
 
   const logouthandlerbtn = () => {
     localStorage.removeItem("user");
@@ -164,7 +164,7 @@ const Navbar = () => {
                     {context?.AddtoCart.length > 0 && (
                       <p
                         className="badge badge-pill bg-danger position-absolute"
-                        style={{ top: "27px", right: "72px" }}
+                        style={{ top: "27px", right: "79px" }}
                       >
                         {context?.AddtoCart.length}
                       </p>
@@ -189,7 +189,7 @@ const Navbar = () => {
                       role="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
-                      className="text-white fs-3 nav-link dropdown-toggle"
+                      className="text-white fs-2 nav-link dropdown-toggle"
                     />
                   )}
 
@@ -217,7 +217,7 @@ const Navbar = () => {
                       <li>
                         <NavLink
                           to="/"
-                          className="dropdown-item bg-white text-black"
+                          className="dropdown-item bg-white text-black "
                           type="button"
                           onClick={() => logouthandlerbtn()}
                         >
@@ -232,6 +232,7 @@ const Navbar = () => {
                           to="/login"
                           className="dropdown-item bg-white text-black"
                           type="button"
+                          onClick={() => setFormState("login")}
                         >
                           Login
                         </NavLink>
@@ -241,6 +242,7 @@ const Navbar = () => {
                           to="/register"
                           className="dropdown-item bg-white text-black"
                           type="button"
+                          onClick={() => setFormState("register")}
                         >
                           Sign up
                         </NavLink>

@@ -7,3 +7,25 @@
   height: 45px;
   font-size: 15px;
 }
+
+.no-underline {
+  text-decoration: none;
+  position: relative;
+  color: black;
+}
+
+.no-underline::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #eb5b00;
+  transition: width 0.3s;
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+}
+
+.no-underline.active::after {
+  width: 100%;
+}
