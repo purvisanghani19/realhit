@@ -1,7 +1,9 @@
 const UserModel = require("../models/UserModel");
 
 const UserRegister = async (req, res) => {
-  const { email, password, name } = req.body;
+  const { email, password, name, usertype } = req.body;
+
+  // const userdbtype = usertype === "admin" || "user";
   if (!email || !password) {
     return res.status(401).json({ result: "require email" });
   } else if (!password) {
@@ -15,8 +17,13 @@ const UserRegister = async (req, res) => {
       return res.status(409).json("Oops ! Email is already registered ");
     }
 
-    // Create a new user
-    const newUser = new UserModel({ email, password, name });
+    // Create a new user--------
+    const newUser = new UserModel({
+      email,
+      password,
+      name,
+      // usertype: userdbtype,
+    });
     console.log("newUser", newUser);
     const result = await newUser.save();
     res.status(201).json({
@@ -30,11 +37,32 @@ const UserRegister = async (req, res) => {
 };
 
 const UserLogin = async (req, res) => {
-  const { password, ...userWithoutPassword } = req.user._doc;
-  res.status(200).json({
-    message: "User logged in successfully",
-    user: userWithoutPassword,
-  });
+  try {
+    const { password, ...userWithoutPassword } = req.user._doc;
+
+    // if (req.email === "admin@gmail.com") {
+    //   res.status(200).json({
+    //     message: "User logged in successfully",
+    //     user: { ...userWithoutPassword, usertype: "admin" },
+    //   });
+    // } else {
+    //   res.status(200).json({
+    //     message: "User logged in successfully",
+    //     user: userWithoutPassword,
+    //   });
+    // }
+
+    if (req.user.email === "admin@gmail.com") {
+      userWithoutPassword.usertype = "admin"; // Add usertype as 'admin'
+    }
+
+    res.status(200).json({
+      message: "User logged in successfully",
+      user: userWithoutPassword,
+    });
+  } catch (error) {
+    console.log("error", error);
+  }
 };
 
 module.exports = { UserRegister, UserLogin };

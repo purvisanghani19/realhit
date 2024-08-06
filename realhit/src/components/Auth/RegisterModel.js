@@ -9,7 +9,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 const RegisterModel = () => {
   const [open, setOpen] = useState(false);
-  const { authContex, formState, setFormState } = useContext(LoginContex);
+  const { setuserDetails, formState, setFormState } = useContext(LoginContex);
   const navigate = useNavigate();
 
   const [Register, setRegister] = useState({
@@ -50,11 +50,11 @@ const RegisterModel = () => {
       console.log("data---", data);
       if (data.status === 201) {
         toast.success(data.data.message);
-        authContex.setuserDetails(data.data.result);
-        navigate("/");
+        setuserDetails(data.data.result);
+        // navigate("/");
       }
     } catch (error) {
-      console.log("error.response.data", error.response.data);
+      console.log("error.response.data", error);
       if (error.response.status === 409) {
         toast.error(error.response.data);
       }
@@ -74,7 +74,7 @@ const RegisterModel = () => {
       console.log("data---", data);
       if (data.status === 200) {
         toast.success(data.data.message);
-        authContex.setuserDetails(data.data.user);
+        setuserDetails(data.data.user);
         navigate("/");
       }
     } catch (error) {

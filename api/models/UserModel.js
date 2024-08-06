@@ -16,6 +16,9 @@ const UserModel = new mongoose.Schema({
   mobileNo: {
     type: Number,
   },
+  usertype: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("user", UserModel);
