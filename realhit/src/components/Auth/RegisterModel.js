@@ -37,7 +37,7 @@ const RegisterModel = () => {
         Register
       );
       console.log("data---", data);
-      if (data.status === 200) {
+      if (data.status === 201) {
         toast.success(data.data.message);
         authContex.setuserDetails(data.data.result);
       }

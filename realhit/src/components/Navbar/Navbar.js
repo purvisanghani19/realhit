@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { CiMenuBurger } from "react-icons/ci";
 import { IoCloseOutline } from "react-icons/io5";
@@ -18,9 +18,15 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   const context = useContext(CartContex);
-  const { userDetails } = useContext(LoginContex);
+  const { userDetails, setuserDetails } = useContext(LoginContex);
 
+  const logouthandlerbtn = () => {
+    localStorage.removeItem("user");
+    setuserDetails({});
+  };
   const newname = userDetails.name ? userDetails.name.charAt(0) : "";
+
+  useEffect(() => {}, [userDetails]);
 
   return (
     <>
@@ -187,26 +193,60 @@ const Navbar = () => {
                     />
                   )}
 
-                  <ul className="dropdown-menu dropdown-menu-end mt-2">
-                    <li>
-                      <NavLink
-                        to="/login"
-                        className="dropdown-item bg-white text-black"
-                        type="button"
-                      >
-                        Login
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        to="/register"
-                        className="dropdown-item bg-white text-black"
-                        type="button"
-                      >
-                        Sign up
-                      </NavLink>
-                    </li>
-                  </ul>
+                  {userDetails?.name ? (
+                    <ul className="dropdown-menu dropdown-menu-end mt-2">
+                      <li>
+                        <NavLink
+                          to="/login"
+                          className="dropdown-item bg-white text-black"
+                          type="button"
+                        >
+                          Profile
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          to="/register"
+                          className="dropdown-item bg-white text-black"
+                          type="button"
+                        >
+                          Order Details
+                        </NavLink>
+                      </li>
+                      <div className="dropdown-divider"></div>
+                      <li>
+                        <NavLink
+                          to="/"
+                          className="dropdown-item bg-white text-black"
+                          type="button"
+                          onClick={() => logouthandlerbtn()}
+                        >
+                          Logout
+                        </NavLink>
+                      </li>
+                    </ul>
+                  ) : (
+                    <ul className="dropdown-menu dropdown-menu-end mt-2">
+                      <li>
+                        <NavLink
+                          to="/login"
+                          className="dropdown-item bg-white text-black"
+                          type="button"
+                        >
+                          Login
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          to="/register"
+                          className="dropdown-item bg-white text-black"
+                          type="button"
+                        >
+                          Sign up
+                        </NavLink>
+                      </li>
+                    </ul>
+                  )}
                 </div>
               </div>
             </>

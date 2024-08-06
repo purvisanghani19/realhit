@@ -5,6 +5,8 @@ import { getUserdetails, setUserdetails } from "../../utils/localStorageHelper";
 const AuthState = (props) => {
   const [userDetails, setuserDetails] = useState(() => getUserdetails());
 
+  console.log("userDetails----------", userDetails);
+
   useEffect(() => {
     if (userDetails) {
       setUserdetails(userDetails);
