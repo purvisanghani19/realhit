@@ -14,15 +14,24 @@ import OversizeTshirt from "./components/Pages/Colleaction/OversizeTshirt";
 import RegisterModel from "../src/components/Auth/RegisterModel";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import AdminProfile from "./components/Admin/AdminProfile";
+import AdminRoutes from "./Routes/AdminRoutes";
+import UserRoutes from "./Routes/UserRoutes";
+import UserProfile from "./components/User/UserProfile";
+import NotAuthorized from "./components/Pages/NotAuthorized";
+import { LoginContex } from "./contexts/Context";
+import { useContext } from "react";
+
 function App() {
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/cart" element={<Cart />}></Route>
         <Route path="/register" element={<RegisterModel />}></Route>
         <Route path="/login" element={<RegisterModel />}></Route>
+
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/cart" element={<Cart />}></Route>
         <Route path="/view-product" element={<ViewProductDetails />}></Route>
         <Route path="/colleaction/tshirt" element={<Tshirts />}></Route>
         <Route path="/colleaction/hoodies" element={<Hoddies />}></Route>
@@ -31,9 +40,19 @@ function App() {
           element={<Sweatshirts />}
         ></Route>
         <Route
-          path="colleaction/oversized-t-shirt"
+          path="/colleaction/oversized-t-shirt"
           element={<OversizeTshirt />}
         ></Route>
+
+        <Route element={<AdminRoutes />}>
+          <Route path="/admin-profile" element={<AdminProfile />}></Route>
+        </Route>
+
+        <Route path="/not-authorized" element={<NotAuthorized />}></Route>
+
+        <Route element={<UserRoutes />}>
+          <Route path="/user-profile" element={<UserProfile />}></Route>
+        </Route>
 
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>

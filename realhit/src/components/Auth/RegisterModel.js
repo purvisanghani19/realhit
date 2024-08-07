@@ -9,7 +9,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 const RegisterModel = () => {
   const [open, setOpen] = useState(false);
-  const { setuserDetails, formState, setFormState } = useContext(LoginContex);
+  const {
+    setuserDetails,
+    formState,
+    setFormState,
+    setTokenlocal,
+    setUserType,
+  } = useContext(LoginContex);
   const navigate = useNavigate();
 
   const [Register, setRegister] = useState({
@@ -71,16 +77,19 @@ const RegisterModel = () => {
 
     try {
       const data = await axios.post("http://localhost:5500/user/login", Login);
-      console.log("data---", data);
+      // console.log("data-----------------", data);
       if (data.status === 200) {
         toast.success(data.data.message);
-        setuserDetails(data.data.user);
+        setuserDetails(data.data.user.name);
+        setUserType(data.data.user.usertype);
+        setTokenlocal(data.data.token);
         navigate("/");
+        setLogin(null);
       }
     } catch (error) {
-      console.log("error.response.data", error);
-      if (error.message) {
-        toast.error(error.message);
+      console.log("error.response.data", error.response.status);
+      if (error.response.status === 401) {
+        toast.error(error.response.data.result);
       }
       // if (error.response.status === 401) {
       //   toast.error(error.response.data.result);

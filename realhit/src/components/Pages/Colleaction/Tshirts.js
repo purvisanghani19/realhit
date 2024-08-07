@@ -6,7 +6,7 @@ import axios from "axios";
 
 const Tshirts = () => {
   const [Product, setProduct] = useState([]);
-  console.log("Product", Product);
+  // console.log("Product", Product);
 
   const getdata = async () => {
     try {

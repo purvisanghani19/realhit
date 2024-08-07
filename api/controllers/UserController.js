@@ -1,9 +1,11 @@
 const UserModel = require("../models/UserModel");
+const generateAccessToken = require("../utils/jwtUtils");
 
 const UserRegister = async (req, res) => {
   const { email, password, name, usertype } = req.body;
 
-  // const userdbtype = usertype === "admin" || "user";
+  // let a = usertype === "admin" && "admin";
+  const userdbtype = usertype === "admin" ? "admin" : "user";
   if (!email || !password) {
     return res.status(401).json({ result: "require email" });
   } else if (!password) {
@@ -22,7 +24,7 @@ const UserRegister = async (req, res) => {
       email,
       password,
       name,
-      // usertype: userdbtype,
+      usertype: userdbtype,
     });
     console.log("newUser", newUser);
     const result = await newUser.save();
@@ -40,29 +42,32 @@ const UserLogin = async (req, res) => {
   try {
     const { password, ...userWithoutPassword } = req.user._doc;
 
-    // if (req.email === "admin@gmail.com") {
-    //   res.status(200).json({
-    //     message: "User logged in successfully",
-    //     user: { ...userWithoutPassword, usertype: "admin" },
-    //   });
-    // } else {
-    //   res.status(200).json({
-    //     message: "User logged in successfully",
-    //     user: userWithoutPassword,
-    //   });
+    // if (req.user.email === "admin@gmail.com") {
+    //   userWithoutPassword.usertype = "admin"; // Add usertype as 'admin'
     // }
 
-    if (req.user.email === "admin@gmail.com") {
-      userWithoutPassword.usertype = "admin"; // Add usertype as 'admin'
-    }
+    //-------jwt token authentication----------
+    const accessToken = generateAccessToken(userWithoutPassword);
 
     res.status(200).json({
-      message: "User logged in successfully",
+      message: "logged in successfully",
       user: userWithoutPassword,
+      token: accessToken,
     });
   } catch (error) {
     console.log("error", error);
   }
 };
 
-module.exports = { UserRegister, UserLogin };
+const UserDetails = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const userdata = await UserModel.findById(id);
+    res.status(200).json({ userdata });
+  } catch (error) {
+    res.status(404).send(error);
+  }
+};
+
+module.exports = { UserRegister, UserLogin, UserDetails };

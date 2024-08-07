@@ -1,3 +1,4 @@
+//product utils--------------------------------------------------------------------------
 export const getProductData = () => {
   const data = localStorage.getItem("cartdata");
   return data ? JSON.parse(data) : [];
@@ -5,6 +6,26 @@ export const getProductData = () => {
 
 export const setProductData = (data) => {
   localStorage.setItem("cartdata", JSON.stringify(data));
+};
+
+//auth utils--------------------------------------------------------------------------
+
+export const getToken = () => {
+  const data = localStorage.getItem("token");
+  return data ? JSON.parse(data) : "";
+};
+
+export const setToken = (data) => {
+  localStorage.setItem("token", JSON.stringify(data));
+};
+
+export const getUsertype = () => {
+  const data = localStorage.getItem("usertype");
+  return data ? JSON.parse(data) : "";
+};
+
+export const setUsertype = (data) => {
+  localStorage.setItem("usertype", JSON.stringify(data));
 };
 
 export const getUserdetails = () => {

@@ -18,18 +18,28 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   const context = useContext(CartContex);
-  const { userDetails, setuserDetails, setFormState } = useContext(LoginContex);
+  const {
+    userDetails,
+    setuserDetails,
+    setFormState,
+    setTokenlocal,
+    setUserType,
+    userType,
+    Tokenlocal,
+  } = useContext(LoginContex);
 
   const logouthandlerbtn = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+    localStorage.removeItem("usertype");
     setuserDetails("");
     setTokenlocal("");
+    setUserType("");
   };
 
-  const newname = userDetails ? userDetails.charAt(0) : "";
+  const newname = userDetails ? userDetails[0] : "";
 
-  useEffect(() => {}, [userDetails]);
+  useEffect(() => {}, [userDetails, userType, Tokenlocal]);
 
   return (
     <>
@@ -176,7 +186,7 @@ const Navbar = () => {
                 </NavLink>
 
                 <div className="nav-item dropdown">
-                  {userDetails?.name ? (
+                  {Tokenlocal ? (
                     <div
                       role="button"
                       data-bs-toggle="dropdown"
@@ -196,17 +206,30 @@ const Navbar = () => {
                     />
                   )}
 
-                  {userDetails?.name ? (
+                  {Tokenlocal ? (
                     <ul className="dropdown-menu dropdown-menu-end mt-2">
-                      <li>
-                        <NavLink
-                          to="/login"
-                          className="dropdown-item bg-white text-black"
-                          type="button"
-                        >
-                          Profile
-                        </NavLink>
-                      </li>
+                      {userType === "admin" ? (
+                        <li>
+                          <NavLink
+                            to="/admin-profile"
+                            className="dropdown-item bg-white text-black"
+                            type="button"
+                          >
+                            Admin Profile
+                          </NavLink>
+                        </li>
+                      ) : (
+                        <li>
+                          <NavLink
+                            to="/user-profile"
+                            className="dropdown-item bg-white text-black"
+                            type="button"
+                          >
+                            User Profile
+                          </NavLink>
+                        </li>
+                      )}
+
                       <li>
                         <NavLink
                           to="/register"

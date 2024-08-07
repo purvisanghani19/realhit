@@ -3,18 +3,18 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { LoginContex } from "../contexts/Context";
 import { toast } from "react-toastify";
 
-const AdminRoutes = ({ componant }) => {
+const UserRoutes = () => {
   const { userType, Tokenlocal } = useContext(LoginContex);
-  const [isAllowed, setIsAllowed] = useState(null); // State to manage route access
   const navigate = useNavigate();
+  const [isAllowed, setIsAllowed] = useState(null); // State to manage route access
 
   useEffect(() => {
     if (!Tokenlocal) {
       toast.warning("Please Login first !");
       navigate("/login");
-    } else if (Tokenlocal && userType !== "admin") {
+    } else if (Tokenlocal && userType !== "user") {
       navigate("/not-authorized");
-    } else if (Tokenlocal && userType === "admin") {
+    } else if (Tokenlocal && userType === "user") {
       setIsAllowed(true); // User is authenticated and authorized
     }
   }, [userType, Tokenlocal, navigate]);
@@ -26,4 +26,4 @@ const AdminRoutes = ({ componant }) => {
   return <Outlet />;
 };
 
-export default AdminRoutes;
+export default UserRoutes;
