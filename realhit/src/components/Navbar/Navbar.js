@@ -22,9 +22,12 @@ const Navbar = () => {
 
   const logouthandlerbtn = () => {
     localStorage.removeItem("user");
-    setuserDetails({});
+    localStorage.removeItem("token");
+    setuserDetails("");
+    setTokenlocal("");
   };
-  const newname = userDetails.name ? userDetails.name.charAt(0) : "";
+
+  const newname = userDetails ? userDetails.charAt(0) : "";
 
   useEffect(() => {}, [userDetails]);
 
