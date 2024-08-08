@@ -1,5 +1,10 @@
 const UserModel = require("../models/UserModel");
-const generateAccessToken = require("../utils/jwtUtils");
+const {
+  generateAccessToken,
+  generateRefreshAccessToken,
+} = require("../utils/jwtUtils");
+const jwt = require("jsonwebtoken");
+const refresKey = process.env.REFRESH_TOKEN_SECRET;
 
 const UserRegister = async (req, res) => {
   const { email, password, name, usertype } = req.body;
@@ -40,22 +45,87 @@ const UserRegister = async (req, res) => {
 
 const UserLogin = async (req, res) => {
   try {
-    const { password, ...userWithoutPassword } = req.user._doc;
-
-    // if (req.user.email === "admin@gmail.com") {
-    //   userWithoutPassword.usertype = "admin"; // Add usertype as 'admin'
-    // }
-
+    const userinfo = {
+      name: req.user._doc.name,
+      usertype: req.user._doc.usertype,
+      _id: req.user._doc._id,
+    };
     //-------jwt token authentication----------
-    const accessToken = generateAccessToken(userWithoutPassword);
+    const accessToken = generateAccessToken(userinfo);
+    const refreshToken = generateRefreshAccessToken(userinfo);
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true, //accsessible only on web server  ---// Prevents JavaScript from accessing the cookie
+      // sameSite: "strict",
+      secure: true, //https
+      sameSite: "None", //cross site cookie
+      maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expiry :set to match to refresh token
+    });
 
     res.status(200).json({
       message: "logged in successfully",
-      user: userWithoutPassword,
+      user: userinfo,
       token: accessToken,
     });
   } catch (error) {
     console.log("error", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+const RefreshToken = async (req, res) => {
+  try {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken)
+      return res.status(401).send("Refresh token not provided");
+
+    // Verify the refresh token
+    const verifiedUser = jwt.verify(refreshToken, refresKey);
+    if (!verifiedUser || typeof verifiedUser !== "object")
+      return res.status(403).send("Invalid refresh token");
+
+    // Fetch user details without password------------------------------------
+    const checkuserToken = await UserModel.findById(verifiedUser._id).select(
+      "-password"
+    );
+    if (!checkuserToken)
+      return res.status(401).json({ message: "Unauthorized user" });
+
+    // Ensure the payload is an object------------------------------------------------
+    const userPayload = {
+      _id: checkuserToken._id,
+      name: checkuserToken.name,
+      usertype: checkuserToken.usertype,
+    };
+
+    // Generate a new access token----------------------------------------------------
+    const newAccessToken = generateAccessToken(userPayload);
+    res.status(200).json({
+      message: "Access token refreshed successfully",
+      token: newAccessToken,
+    });
+  } catch (error) {
+    console.error("Error refreshing token:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+const Logout = (req, res) => {
+  try {
+    const cookies = req.cookies;
+    if (!cookies?.refreshToken) return res.status(204);
+
+    res.clearCookie("refreshToken", {
+      httpOnly: true, //accsessible only on web server
+      sameSite: "strict",
+      secure: true, //https
+      // sameSite: "None", //cross site cookie
+    });
+    res.json({ message: "Cookie cleared" });
+  } catch (error) {
+    console.error("logout", error);
+    res.status(500).send("Internal Server Error");
   }
 };
 
@@ -70,4 +140,4 @@ const UserDetails = async (req, res) => {
   }
 };
 
-module.exports = { UserRegister, UserLogin, UserDetails };
+module.exports = { UserRegister, UserLogin, UserDetails, RefreshToken, Logout };

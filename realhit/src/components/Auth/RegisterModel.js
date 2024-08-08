@@ -6,7 +6,7 @@ import { LoginContex } from "../../contexts/Context";
 import { toast } from "react-toastify";
 import "./register.css";
 import { NavLink, useNavigate } from "react-router-dom";
-
+import api from "../../api/RefreshToken";
 const RegisterModel = () => {
   const [open, setOpen] = useState(false);
   const {
@@ -76,13 +76,15 @@ const RegisterModel = () => {
     }
 
     try {
-      const data = await axios.post("http://localhost:5500/user/login", Login);
-      // console.log("data-----------------", data);
+      const data = await api.post("/user/login", Login);
+      console.log("data-----------------", data);
+      const accessToken = data.data.token;
+      console.log("accessToken-----", accessToken);
       if (data.status === 200) {
         toast.success(data.data.message);
         setuserDetails(data.data.user.name);
         setUserType(data.data.user.usertype);
-        setTokenlocal(data.data.token);
+        setTokenlocal(accessToken);
         navigate("/");
         setLogin(null);
       }
@@ -91,9 +93,6 @@ const RegisterModel = () => {
       if (error.response.status === 401) {
         toast.error(error.response.data.result);
       }
-      // if (error.response.status === 401) {
-      //   toast.error(error.response.data.result);
-      // }
     }
   };
 

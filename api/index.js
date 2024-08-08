@@ -1,16 +1,26 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const app = express();
 const connectdb = require("./config/db");
 const ProductRoutes = require("./routes/ProductRouts");
 const UserRoutes = require("./routes/UserRoutes");
 const path = require("path");
+const cookieParser = require("cookie-parser");
 
 const port = process.env.PORT || 5000;
-app.use(express.json());
 
-app.use(cors());
+const app = express();
+
+app.use(cookieParser());
+app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // or your frontend's URL
+    credentials: true,
+  })
+);
+
+//routes---------------------------------
 app.use("/product", ProductRoutes);
 app.use("/user", UserRoutes);
 
