@@ -6,16 +6,12 @@ import { LoginContex } from "../../contexts/Context";
 import { toast } from "react-toastify";
 import "./register.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import api from "../../api/RefreshToken";
+import api, { isTokenExpired } from "../../api/RefreshToken";
+import { jwtDecode } from "jwt-decode";
 const RegisterModel = () => {
   const [open, setOpen] = useState(false);
-  const {
-    setuserDetails,
-    formState,
-    setFormState,
-    setTokenlocal,
-    setUserType,
-  } = useContext(LoginContex);
+  const { setuserDetails, formState, setFormState, setTokenlocal } =
+    useContext(LoginContex);
   const navigate = useNavigate();
 
   const [Register, setRegister] = useState({
@@ -76,20 +72,32 @@ const RegisterModel = () => {
     }
 
     try {
-      const data = await api.post("/user/login", Login);
+      const data = await axios.post("http://localhost:5500/user/login", Login);
       console.log("data-----------------", data);
       const accessToken = data.data.token;
       console.log("accessToken-----", accessToken);
       if (data.status === 200) {
         toast.success(data.data.message);
-        setuserDetails(data.data.user.name);
-        setUserType(data.data.user.usertype);
+        const decodedToken = jwtDecode(accessToken);
+        if (!decodedToken) {
+          return toast.warn("no token provided");
+        }
+        // isTokenExpired(decodedToken.exp);
+        const userinfo = {
+          name: decodedToken.name,
+          usertype: decodedToken.usertype,
+          _id: decodedToken._id,
+        };
+        setuserDetails(userinfo);
         setTokenlocal(accessToken);
         navigate("/");
-        setLogin(null);
+        setLogin({
+          email: "",
+          password: "",
+        });
       }
     } catch (error) {
-      console.log("error.response.data", error.response.status);
+      console.log("error.response.data", error);
       if (error.response.status === 401) {
         toast.error(error.response.data.result);
       }
@@ -203,7 +211,7 @@ const RegisterModel = () => {
                 <h3 className="fw-semibold py-3">
                   Welcome back Please Login to your Account.
                 </h3>
-                <form onSubmit={GetLogin}>
+                <form onSubmit={(e) => GetLogin(e)}>
                   <div className="mb-3">
                     <input
                       type="email"

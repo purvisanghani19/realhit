@@ -19,15 +19,6 @@ export const setToken = (data) => {
   localStorage.setItem("token", JSON.stringify(data));
 };
 
-export const getUsertype = () => {
-  const data = localStorage.getItem("usertype");
-  return data ? JSON.parse(data) : "";
-};
-
-export const setUsertype = (data) => {
-  localStorage.setItem("usertype", JSON.stringify(data));
-};
-
 export const getUserdetails = () => {
   const data = localStorage.getItem("user");
   return data ? JSON.parse(data) : {};

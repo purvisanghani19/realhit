@@ -5,23 +5,19 @@ import {
   setUserdetails,
   getToken,
   setToken,
-  getUsertype,
-  setUsertype,
 } from "../../utils/localStorageHelper";
 import { useLocation } from "react-router-dom";
 
 const AuthState = (props) => {
   const [userDetails, setuserDetails] = useState(() => getUserdetails());
   const [Tokenlocal, setTokenlocal] = useState(() => getToken());
-  const [userType, setUserType] = useState(() => getUsertype());
 
   useEffect(() => {
     if (userDetails && Tokenlocal) {
       setUserdetails(userDetails);
       setToken(Tokenlocal);
-      setUsertype(userType);
     }
-  }, [userDetails, Tokenlocal, userType]);
+  }, [userDetails, Tokenlocal]);
 
   //for register & login form to render------
   const location = useLocation();
@@ -40,8 +36,6 @@ const AuthState = (props) => {
           formState,
           setFormState,
           setTokenlocal,
-          setUserType,
-          userType,
           Tokenlocal,
         }}
       >

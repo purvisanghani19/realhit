@@ -13,6 +13,7 @@ import "animate.css";
 import { NavLink } from "react-router-dom";
 import { CartContex, LoginContex } from "../../contexts/Context";
 import UseAvatar from "./UseAvatar";
+import { logoutUser } from "../../api/RefreshToken";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -29,6 +30,7 @@ const Navbar = () => {
   } = useContext(LoginContex);
 
   const logouthandlerbtn = () => {
+    logoutUser();
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     localStorage.removeItem("usertype");
@@ -37,9 +39,9 @@ const Navbar = () => {
     setUserType("");
   };
 
-  const newname = userDetails ? userDetails[0] : "";
+  const newname = userDetails ? userDetails?.name?.charAt(0) : "";
 
-  useEffect(() => {}, [userDetails, userType, Tokenlocal]);
+  useEffect(() => {}, [userDetails, Tokenlocal]);
 
   return (
     <>
@@ -208,7 +210,7 @@ const Navbar = () => {
 
                   {Tokenlocal ? (
                     <ul className="dropdown-menu dropdown-menu-end mt-2">
-                      {userType === "admin" ? (
+                      {userDetails.userType === "admin" ? (
                         <li>
                           <NavLink
                             to="/admin-profile"
