@@ -210,7 +210,7 @@ const ViewProductDetails = () => {
         </div>
       </div>
       {/* ----------------Customer review start----------- */}
-      <CustomerReviw />
+      <CustomerReviw productId={product} />
       {/* ----------------Customer review end----------- */}
 
       {/* ----------------product container start----------- */}

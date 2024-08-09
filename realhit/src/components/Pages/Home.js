@@ -33,7 +33,7 @@ const Home = () => {
     quantity: 1,
   });
 
-  console.log("inputvalue--", inputvalue);
+  // console.log("inputvalue--", inputvalue);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

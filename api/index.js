@@ -4,6 +4,7 @@ const cors = require("cors");
 const connectdb = require("./config/db");
 const ProductRoutes = require("./routes/ProductRouts");
 const UserRoutes = require("./routes/UserRoutes");
+const ReviewRoutes = require("./routes/ReviewRoutes");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 
@@ -23,6 +24,7 @@ app.use(
 //routes---------------------------------
 app.use("/product", ProductRoutes);
 app.use("/user", UserRoutes);
+app.use("/review", ReviewRoutes);
 
 // Serve static files from the uploads directory
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));

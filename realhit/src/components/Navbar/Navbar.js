@@ -210,7 +210,7 @@ const Navbar = () => {
 
                   {Tokenlocal ? (
                     <ul className="dropdown-menu dropdown-menu-end mt-2">
-                      {userDetails.userType === "admin" ? (
+                      {userDetails.usertype === "admin" ? (
                         <li>
                           <NavLink
                             to="/admin-profile"
