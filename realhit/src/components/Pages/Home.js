@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import banner from "../../img/main_banner.jpg";
 import Gifbanner from "../../img/banner/Main_Banner_GIF.jpg";
 import SecoundGifbanner from "../../img/banner/secound_GIF.jpg";
@@ -19,11 +19,34 @@ import Banner from "../Containers/Banner";
 import "./home.css";
 import axios from "axios";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { CartContex } from "../../contexts/Context";
 
 const Home = () => {
   const navigate = useNavigate();
+  const context = useContext(CartContex);
   const [Product, setProduct] = useState([]);
   const [latestPro, setLatestPro] = useState({});
+
+  const [inputvalue, setInputvalue] = useState({
+    color: "",
+    size: "",
+    quantity: 1,
+  });
+
+  console.log("inputvalue--", inputvalue);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputvalue((prevalue) => ({
+      ...prevalue,
+      [name]: value,
+    }));
+  };
+  const addtocartitem = () => {
+    console.log("dddd");
+    // context.addTocart({ ...latestPro, ...inputvalue });
+    // window.scrollTo(0, 0);
+  };
 
   // console.log("latestPro---", latestPro);
 
@@ -128,6 +151,9 @@ const Home = () => {
                     <button
                       key={index}
                       className="btn px-3  px-sm-4  border-black rounded-0 bg-black text-white text-uppercase "
+                      onChange={handleChange}
+                      name="color"
+                      value={inputvalue.color}
                     >
                       {item}
                     </button>
@@ -147,6 +173,9 @@ const Home = () => {
                     <button
                       key={index}
                       className="btn px-3  px-sm-4  border-black rounded-0 bg-black text-white text-uppercase "
+                      value={inputvalue.size}
+                      onChange={handleChange}
+                      name="size"
                     >
                       {item}
                     </button>
@@ -156,7 +185,7 @@ const Home = () => {
                   </button> */}
                 </div>
               </div>
-              <div className="my-3">
+              {/* <div className="my-3">
                 <span
                   className="d-block font-sans"
                   style={{ fontSize: "15px", color: "black" }}
@@ -172,10 +201,15 @@ const Home = () => {
                     +
                   </span>
                 </div>
-              </div>
+              </div> */}
 
               <div className="d-flex flex-column">
-                <button className="btn w-100 py-2 pt-2 pb-2 my-1  border-black rounded-0 text-black">
+                <button
+                  onClick={() => {
+                    addtocartitem();
+                  }}
+                  className="btn w-100 py-2 pt-2 pb-2 my-1  border-black rounded-0 text-black"
+                >
                   Add to cart
                 </button>
                 <button className="btn w-100 py-2 pt-2 pb-2 my-1 border-none  rounded-0 text-black shadow p-3 mb-5 bg-white  ">
