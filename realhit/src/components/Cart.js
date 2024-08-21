@@ -98,7 +98,13 @@ const Cart = () => {
                         <div className="col-6 border-black d-flex align-items-center gap-2 gap-md-2 gap-lg-4 ">
                           <div className="btn py-2 px-2 fs-semibold  border-black rounded-0  text-black text-uppercase gap-4">
                             <span
-                              onClick={() => context.removeitem(item._id)}
+                              onClick={() =>
+                                context.removeitem(
+                                  item._id,
+                                  item.color,
+                                  item.size
+                                )
+                              }
                               role="button"
                               className="px-2 px-sm-3 py-2 py-sm-3 "
                             >
@@ -108,7 +114,13 @@ const Cart = () => {
                               {item.quantity}
                             </span>
                             <span
-                              onClick={() => context.plusitem(item._id)}
+                              onClick={() =>
+                                context.plusitem(
+                                  item._id,
+                                  item.color,
+                                  item.size
+                                )
+                              }
                               role="button"
                               className="px-2 px-sm-3 py-2 py-sm-3"
                             >
@@ -117,7 +129,13 @@ const Cart = () => {
                           </div>
                           <div>
                             <RiDeleteBin6Line
-                              onClick={() => context.deleteItemCart(item._id)}
+                              onClick={() =>
+                                context.deleteItemCart(
+                                  item._id,
+                                  item.color,
+                                  item.size
+                                )
+                              }
                             />
                           </div>
                         </div>

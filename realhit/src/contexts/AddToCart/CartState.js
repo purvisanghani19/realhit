@@ -7,7 +7,15 @@ const CartState = (props) => {
   const [total, setTotal] = useState(0);
 
   const addTocart = (data) => {
-    const index = AddtoCart.findIndex((item) => item._id === data._id);
+    const localdata = getProductData();
+
+    // Find the index of the product with the same ID, color, and size
+    const index = localdata.findIndex(
+      (item) =>
+        item._id === data._id &&
+        item.color === data.color &&
+        item.size === data.size
+    );
 
     const updatedCart = [...AddtoCart];
     if (index !== -1) {
@@ -20,18 +28,20 @@ const CartState = (props) => {
     countTotal();
   };
 
-  const plusitem = (id) => {
+  const plusitem = (id, color, size) => {
     const updateqnt = AddtoCart.map((item) =>
-      item._id === id ? { ...item, quantity: item.quantity + 1 } : item
+      item._id === id && item.color === color && item.size === size
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
     );
     setAddtoCart(updateqnt);
     setProductData(updateqnt);
     countTotal();
   };
 
-  const removeitem = (id) => {
+  const removeitem = (id, color, size) => {
     const updatedCart = AddtoCart.map((item) => {
-      if (item._id === id) {
+      if (item._id === id && item.color === color && item.size === size) {
         const updatedQuantity = (item.quantity || 0) - 1;
         if (updatedQuantity <= 0) {
           return null;
@@ -47,10 +57,12 @@ const CartState = (props) => {
     countTotal();
   };
 
-  const deleteItemCart = (id) => {
+  const deleteItemCart = (id, color, size) => {
     const localdata = getProductData();
     if (localdata) {
-      const newdata = localdata.filter((item) => item._id !== id);
+      const newdata = localdata.filter(
+        (item) => item._id === id && item.color === color && item.size === size
+      );
       setProductData(newdata);
       setAddtoCart(newdata);
     }
