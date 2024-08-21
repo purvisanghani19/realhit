@@ -10,14 +10,14 @@ const AdminRoutes = ({ componant }) => {
 
   useEffect(() => {
     if (!Tokenlocal) {
-      toast.warning("Please Login first !");
+      toast.warning("Please Login first admin !");
       navigate("/login");
     } else if (Tokenlocal && userDetails?.name !== "admin") {
       navigate("/not-authorized");
     } else if (Tokenlocal && userDetails?.name === "admin") {
       setIsAllowed(true); // User is authenticated and authorized
     }
-  }, [userDetails, Tokenlocal, navigate]);
+  }, [userDetails, Tokenlocal]);
 
   if (isAllowed === null) {
     return null; // or a loading spinner if you want to show one while redirecting

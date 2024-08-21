@@ -129,6 +129,7 @@ const Cart = () => {
                           </div>
                           <div>
                             <RiDeleteBin6Line
+                              role="button"
                               onClick={() =>
                                 context.deleteItemCart(
                                   item._id,
@@ -161,7 +162,10 @@ const Cart = () => {
               <span className="py-3 text-center">
                 Tax included. Shipping and discounts calculated at checkout.
               </span>
-              <button className="btn w-25 py-2 pt-2 pb-2 my-1 border-none  rounded-0 text-black shadow p-3 mb-5 bg-white py-2  ">
+              <button
+                onClick={() => navigate("/gp")}
+                className="btn w-25 py-2 pt-2 pb-2 my-1 border-none  rounded-0 text-black shadow p-3 mb-5 bg-white py-2  "
+              >
                 Buy Now
               </button>
             </div>

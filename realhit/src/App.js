@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Pages/Home";
 import Footer from "./components/Footer/Footer";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Cart from "./components/Cart";
 import ViewProductDetails from "./components/Containers/ViewProductDetails";
 import Tshirts from "./components/Pages/Colleaction/Tshirts";
@@ -21,11 +21,15 @@ import UserProfile from "./components/User/UserProfile";
 import NotAuthorized from "./components/Pages/NotAuthorized";
 import { LoginContex } from "./contexts/Context";
 import { useContext } from "react";
+import Checkout from "./components/Payment/Checkout.js";
 
 function App() {
+  const location = useLocation();
+  const hideNavbarAndFooter = location.pathname === "/gp";
+
   return (
     <>
-      <Navbar />
+      {!hideNavbarAndFooter && <Navbar />}
       <Routes>
         <Route path="/register" element={<RegisterModel />}></Route>
         <Route path="/login" element={<RegisterModel />}></Route>
@@ -52,11 +56,12 @@ function App() {
 
         <Route element={<UserRoutes />}>
           <Route path="/user-profile" element={<UserProfile />}></Route>
+          <Route path="/gp" element={<Checkout />}></Route>
         </Route>
 
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
-      <Footer />
+      {!hideNavbarAndFooter && <Footer />}
 
       <ToastContainer />
     </>

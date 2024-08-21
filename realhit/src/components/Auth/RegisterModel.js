@@ -8,6 +8,8 @@ import "./register.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import api, { isTokenExpired } from "../../api/RefreshToken";
 import { jwtDecode } from "jwt-decode";
+import useRedirectAfterLogin from "../../CustomHook/useRedirectAfterLogin.js";
+
 const RegisterModel = () => {
   const [open, setOpen] = useState(false);
   const { setuserDetails, formState, setFormState, setTokenlocal } =
@@ -91,6 +93,7 @@ const RegisterModel = () => {
         setuserDetails(userinfo);
         setTokenlocal(accessToken);
         navigate("/");
+
         setLogin({
           email: "",
           password: "",

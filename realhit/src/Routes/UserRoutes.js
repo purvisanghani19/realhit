@@ -10,20 +10,20 @@ const UserRoutes = () => {
 
   useEffect(() => {
     if (!Tokenlocal) {
-      toast.warning("Please Login first !");
+      toast.warning("Please Login first user!");
       navigate("/login");
-    } else if (Tokenlocal && userDetails?.name !== "user") {
+    } else if (Tokenlocal && userDetails?.usertype !== "user") {
       navigate("/not-authorized");
-    } else if (Tokenlocal && userDetails?.name === "user") {
+    } else if (Tokenlocal && userDetails?.usertype === "user") {
       setIsAllowed(true); // User is authenticated and authorized
     }
-  }, [userDetails, Tokenlocal, navigate]);
+  }, [userDetails, Tokenlocal]);
 
   if (isAllowed === null) {
     return null; // or a loading spinner if you want to show one while redirecting
+  } else {
+    return <Outlet />;
   }
-
-  return <Outlet />;
 };
 
 export default UserRoutes;

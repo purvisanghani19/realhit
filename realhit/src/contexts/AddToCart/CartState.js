@@ -58,14 +58,11 @@ const CartState = (props) => {
   };
 
   const deleteItemCart = (id, color, size) => {
-    const localdata = getProductData();
-    if (localdata) {
-      const newdata = localdata.filter(
-        (item) => item._id === id && item.color === color && item.size === size
-      );
-      setProductData(newdata);
-      setAddtoCart(newdata);
-    }
+    const updatedCart = AddtoCart.filter(
+      (item) => !(item._id === id && item.color === color && item.size === size)
+    );
+    setProductData(updatedCart);
+    setAddtoCart(updatedCart);
   };
 
   const countTotal = () => {

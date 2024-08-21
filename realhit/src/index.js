@@ -6,14 +6,29 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import CartState from "./contexts/AddToCart/CartState";
 import AuthState from "./contexts/Auth/AuthState";
+import getCheckoutTheme from "./MUI/getCheckoutTheme.js";
+
+//font roboto------
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import { ThemeProvider } from "@emotion/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+//for MUI SETUP
+const mode = "light";
+const theme = getCheckoutTheme(mode);
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <CartState>
         <AuthState>
-          <App />
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
         </AuthState>
       </CartState>
     </BrowserRouter>
