@@ -6,6 +6,7 @@ const {
   UserDetails,
   RefreshToken,
   Logout,
+  UserPlaceOrder,
 } = require("../controllers/UserController");
 const { HashPassword, ComparePass } = require("../middleware/BcryptPassword");
 const {
@@ -18,5 +19,6 @@ user.route("/login").post(ComparePass, UserLogin);
 user.route("/refresh").get(authenticateRefreshToken, RefreshToken);
 user.route("/logout").post(Logout);
 user.route("/get-user-details/:id").get(authenticate, UserDetails);
+user.route("/placeorder").get(authenticate, UserPlaceOrder);
 
 module.exports = user;

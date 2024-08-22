@@ -7,10 +7,14 @@ import EmptyCart from "../Lotties/EmptyCart.json";
 import { NavLink, useNavigate } from "react-router-dom";
 import { getProductData, setProductData } from "../utils/localStorageHelper";
 import { CartContex } from "../contexts/Context";
+import useRedirectAfterLogin from "../CustomHook/useRedirectAfterLogin.js";
 const Cart = () => {
-  const context = useContext(CartContex);
+  const { AddtoCart, total, removeitem, plusitem, deleteItemCart } =
+    useContext(CartContex);
 
   const navigate = useNavigate();
+
+  const { redirectTo } = useRedirectAfterLogin();
 
   // const removeItem = (itemid) => {
   //   const localdata = getProductData();
@@ -23,7 +27,7 @@ const Cart = () => {
   return (
     <>
       <div className="container">
-        {context?.AddtoCart?.length === 0 ? (
+        {AddtoCart?.length === 0 ? (
           <>
             <div className="container text-center h-75 w-75 py-4 ">
               <p style={{ fontSize: "24px" }}>Your cart is empty</p>
@@ -68,7 +72,7 @@ const Cart = () => {
 
             <hr />
 
-            {context.AddtoCart?.map((item, index) => {
+            {AddtoCart?.map((item, index) => {
               return (
                 <div key={index}>
                   <div className="row gy-4">
@@ -99,11 +103,7 @@ const Cart = () => {
                           <div className="btn py-2 px-2 fs-semibold  border-black rounded-0  text-black text-uppercase gap-4">
                             <span
                               onClick={() =>
-                                context.removeitem(
-                                  item._id,
-                                  item.color,
-                                  item.size
-                                )
+                                removeitem(item._id, item.color, item.size)
                               }
                               role="button"
                               className="px-2 px-sm-3 py-2 py-sm-3 "
@@ -115,11 +115,7 @@ const Cart = () => {
                             </span>
                             <span
                               onClick={() =>
-                                context.plusitem(
-                                  item._id,
-                                  item.color,
-                                  item.size
-                                )
+                                plusitem(item._id, item.color, item.size)
                               }
                               role="button"
                               className="px-2 px-sm-3 py-2 py-sm-3"
@@ -131,11 +127,7 @@ const Cart = () => {
                             <RiDeleteBin6Line
                               role="button"
                               onClick={() =>
-                                context.deleteItemCart(
-                                  item._id,
-                                  item.color,
-                                  item.size
-                                )
+                                deleteItemCart(item._id, item.color, item.size)
                               }
                             />
                           </div>
@@ -157,13 +149,13 @@ const Cart = () => {
             <div className="d-flex flex-column justify-content-end align-items-center align-items-md-end py-5">
               <div className="d-flex gap-3">
                 <span className="fw-bold">Estimated total</span>
-                <span className="">Rs.{context?.total}</span>
+                <span className="">Rs.{total}</span>
               </div>
               <span className="py-3 text-center">
                 Tax included. Shipping and discounts calculated at checkout.
               </span>
               <button
-                onClick={() => navigate("/gp")}
+                onClick={() => redirectTo("/gp")}
                 className="btn w-25 py-2 pt-2 pb-2 my-1 border-none  rounded-0 text-black shadow p-3 mb-5 bg-white py-2  "
               >
                 Buy Now

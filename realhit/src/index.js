@@ -14,6 +14,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { ThemeProvider } from "@emotion/react";
+import OrderPayment from "./contexts/Payment/OrderPayment.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -26,9 +27,11 @@ root.render(
     <BrowserRouter>
       <CartState>
         <AuthState>
-          <ThemeProvider theme={theme}>
-            <App />
-          </ThemeProvider>
+          <OrderPayment>
+            <ThemeProvider theme={theme}>
+              <App />
+            </ThemeProvider>
+          </OrderPayment>
         </AuthState>
       </CartState>
     </BrowserRouter>

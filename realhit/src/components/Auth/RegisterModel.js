@@ -93,7 +93,6 @@ const RegisterModel = () => {
         setuserDetails(userinfo);
         setTokenlocal(accessToken);
         navigate("/");
-
         setLogin({
           email: "",
           password: "",

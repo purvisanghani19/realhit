@@ -3,7 +3,7 @@ const secretkey = process.env.JWT_API_KEY;
 const refresKey = process.env.REFRESH_TOKEN_SECRET;
 
 const generateAccessToken = (user) => {
-  console.log("user---------------------", user);
+  // console.log("user---------------------", user);
   return jwt.sign(user, secretkey, {
     expiresIn: process.env.JWT_ACCESS_EXPIRES_IN,
   });

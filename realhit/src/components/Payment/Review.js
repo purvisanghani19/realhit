@@ -1,37 +1,61 @@
-import * as React from 'react';
+import React, { useContext } from "react";
 
-import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Grid';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-
-const addresses = ['1 MUI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
-const payments = [
-  { name: 'Card type:', detail: 'Visa' },
-  { name: 'Card holder:', detail: 'Mr. John Smith' },
-  { name: 'Card number:', detail: 'xxxx-xxxx-xxxx-1234' },
-  { name: 'Expiry date:', detail: '04/2024' },
-];
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { CartContex, PaymentContex } from "../../contexts/Context";
 
 export default function Review() {
+  const { cardDetails, ShippingDetails, ProductDetails, finalTotal } =
+    useContext(PaymentContex);
+  const { total } = useContext(CartContex);
+
+  const addresses = [
+    ShippingDetails.address1,
+    ShippingDetails.address2,
+    ShippingDetails.city,
+  ];
+
+  const cardNumber = cardDetails.cardNumber;
+  const last4Digits = cardNumber.slice(-4);
+  const maskedCardNumber =
+    cardNumber
+      .slice(0, -4) // Get the part before the last 4 digits
+      .replace(/\d/g, "x") // Replace all digits with 'x'
+      .replace(/\s+/g, "") // Remove spaces
+      .replace(/(.{4})/g, "$1-") // Add hyphens every 4 digits
+      .slice(0, -1) + // Remove the trailing hyphen
+    last4Digits; // Append the last 4 digits
+  const payments = [
+    { name: "Card type:", detail: cardDetails.paymentType },
+    { name: "Card holder:", detail: cardDetails.Cardholder },
+    { name: "Card number:", detail: maskedCardNumber },
+    { name: "Expiry date:", detail: cardDetails.expirationDate },
+  ];
+
   return (
     <Stack spacing={2}>
       <List disablePadding>
         <ListItem sx={{ py: 1, px: 0 }}>
-          <ListItemText primary="Products" secondary="4 selected" />
-          <Typography variant="body2">$134.98</Typography>
+          <ListItemText
+            primary="Products"
+            secondary={`${ProductDetails.length} selected`}
+          />
+          <Typography variant="body2">Rs.{total}</Typography>
         </ListItem>
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Shipping" secondary="Plus taxes" />
-          <Typography variant="body2">$9.99</Typography>
+          <Typography variant="body2">Rs.50</Typography>
         </ListItem>
+        <Divider sx={{ bgcolor: "#D1D8C5" }} />
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            $144.97
+            Rs.{finalTotal}
           </Typography>
         </ListItem>
       </List>
@@ -46,9 +70,11 @@ export default function Review() {
           <Typography variant="subtitle2" gutterBottom>
             Shipment details
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom sx={{ color: 'text.secondary' }}>
-            {addresses.join(', ')}
+          <Typography gutterBottom>
+            {ShippingDetails.firstname + " " + ShippingDetails.lastname}
+          </Typography>
+          <Typography gutterBottom sx={{ color: "text.secondary" }}>
+            {addresses.join(", ")}
           </Typography>
         </div>
         <div>
@@ -62,9 +88,9 @@ export default function Review() {
                   direction="row"
                   spacing={1}
                   useFlexGap
-                  sx={{ width: '100%', mb: 1 }}
+                  sx={{ width: "100%", mb: 1 }}
                 >
-                  <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                  <Typography variant="body1" sx={{ color: "text.secondary" }}>
                     {payment.name}
                   </Typography>
                   <Typography variant="body2">{payment.detail}</Typography>

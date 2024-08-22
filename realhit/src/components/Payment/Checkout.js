@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
 import Box from "@mui/material/Box";
@@ -29,6 +29,9 @@ import InfoMobile from "./InfoMobile";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 import ToggleColorMode from "./ToggleColorMode";
+import { CartContex, PaymentContex } from "../../contexts/Context.js";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
@@ -116,12 +119,37 @@ export default function Checkout() {
   const toggleCustomTheme = () => {
     setShowCustomTheme((prev) => !prev);
   };
+
+  const { ProductDetails, ShippingDetails, finalTotal } =
+    useContext(PaymentContex);
+  console.log("pro", ProductDetails);
+  console.log("ship", ShippingDetails);
+
   const handleNext = () => {
+    if (activeStep === steps.length - 1) {
+      const PlaceorderApi = async () => {
+        // try {
+        //   const res = axios.post(
+        //     "http://localhost:5500/user/placeorder"
+        //     // payload
+        //   );
+        //   console.log("res", res);
+        // } catch (error) {
+        //   console.log("error.response.data", error);
+        //   if (error.response.status === 409) {
+        //     toast.error(error.response.data);
+        //   }
+        // }
+      };
+
+      PlaceorderApi();
+    }
     setActiveStep(activeStep + 1);
   };
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
   return (
     <ThemeProvider theme={showCustomTheme ? checkoutTheme : defaultTheme}>
       <CssBaseline />
@@ -147,7 +175,7 @@ export default function Checkout() {
             <Button
               startIcon={<ArrowBackRoundedIcon />}
               component="a"
-              href="/"
+              href="/cart"
               sx={{ ml: "-8px" }}
             >
               Back to
@@ -162,7 +190,7 @@ export default function Checkout() {
               maxWidth: 500,
             }}
           >
-            <Info totalPrice={activeStep >= 2 ? "$144.97" : "$134.98"} />
+            <Info totalPrice={finalTotal} />
           </Box>
         </Grid>
         <Grid
@@ -257,13 +285,9 @@ export default function Checkout() {
                 <Typography variant="subtitle2" gutterBottom>
                   Selected products
                 </Typography>
-                <Typography variant="body1">
-                  {activeStep >= 2 ? "$144.97" : "$134.98"}
-                </Typography>
+                <Typography variant="body1">Rs.{finalTotal}</Typography>
               </div>
-              <InfoMobile
-                totalPrice={activeStep >= 2 ? "$144.97" : "$134.98"}
-              />
+              <InfoMobile totalPrice={finalTotal} />
             </CardContent>
           </Card>
           <Box

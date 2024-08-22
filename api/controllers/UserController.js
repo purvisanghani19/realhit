@@ -1,3 +1,4 @@
+const PlaceModel = require("../models/PlaceModel");
 const UserModel = require("../models/UserModel");
 const {
   generateAccessToken,
@@ -5,11 +6,13 @@ const {
 } = require("../utils/jwtUtils");
 const jwt = require("jsonwebtoken");
 const refresKey = process.env.REFRESH_TOKEN_SECRET;
+const moment = require("moment");
+const nodemailer = require("nodemailer");
 
 const UserRegister = async (req, res) => {
   const { email, password, name, usertype } = req.body;
 
-  // let a = usertype === "admin" && "admin";
+  // for admin usertype admin in postman
   const userdbtype = usertype === "admin" ? "admin" : "user";
   if (!email || !password) {
     return res.status(401).json({ result: "require email" });
@@ -140,4 +143,91 @@ const UserDetails = async (req, res) => {
   }
 };
 
-module.exports = { UserRegister, UserLogin, UserDetails, RefreshToken, Logout };
+const UserPlaceOrder = async (req, res) => {
+  const { userId, items, totalAmount, shippingAddress } = req.body;
+
+  // Validate required fields--------------------
+  if (!userId) {
+    return res.status(400).json({ result: "User ID is required" });
+  }
+  if (!items || !Array.isArray(items) || items.length === 0) {
+    return res.status(400).json({ result: "Items detail is required" });
+  }
+  if (!totalAmount) {
+    return res.status(400).json({ result: "Total amount is required" });
+  }
+  if (!shippingAddress) {
+    return res.status(400).json({ result: "Shipping address is required" });
+  }
+
+  try {
+    const orderdetails = new PlaceModel({
+      userId,
+      items,
+      totalAmount,
+      shippingAddress,
+    });
+    const result = await orderdetails.save();
+
+    //invoice send to use email using nodemailer----------------------------------------
+
+    //date formate-------
+    function formateDate(date) {
+      return moment(date).format("DD-MM-YYYY");
+    }
+    const now = new Date(orderdetails.orderDate);
+    //  formateDate(now);
+
+    //user details------
+    const useremail = await UserModel.findById(userId);
+    // console.log("formateDate(now)----", formateDate(now));
+    const usermail = useremail.email;
+    const orderdate = formateDate(now);
+    const username = useremail.name;
+
+    // //mail to user------
+    // const transporter = nodemailer.createTransport({
+    //   service: "gmail",
+    //   secure: true,
+    //   port: 465,
+    //   auth: {
+    //     user: process.env.EMAIL_ADMIN,
+    //     pass: process.env.EMAIL_PASS,
+    //   },
+    // });
+
+    // // Define email options
+    // const mailOptions = {
+    //   from: process.env.EMAIL_USER,
+    //   to: usermail,
+    //   subject: "🎉 Hooray! Your Order is Placed – Here’s the Scoop!",
+
+    //   html: `
+    //   <p>Hi there, ${username}!</p>
+    //   <p>Thank you for Purchasing Order,totale ammount ${totalAmount}.</p>
+    //   <p>Order date${orderdate}</p>
+    //   <p>Best regards,<br/>Realhit</p>
+    // `,
+    // };
+
+    // // Send the email
+    // await transporter.sendMail(mailOptions);
+
+    res.status(201).json({
+      message: "Order placed successfully Check Your Email For Invoice",
+      result,
+    });
+  } catch (error) {
+    console.error("Error placing order:", error);
+    res.status(500).json({ result: "Internal server error" });
+  }
+};
+
+module.exports = {
+  UserRegister,
+  UserLogin,
+  UserDetails,
+  RefreshToken,
+  Logout,
+  UserPlaceOrder,
+};
