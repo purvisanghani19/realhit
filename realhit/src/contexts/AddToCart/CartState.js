@@ -78,7 +78,7 @@ const CartState = (props) => {
     if (storedata) {
       setAddtoCart(storedata);
     }
-  }, []);
+  }, [total]);
 
   useEffect(() => {
     countTotal();

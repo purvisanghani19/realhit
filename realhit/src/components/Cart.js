@@ -24,6 +24,8 @@ const Cart = () => {
   //   }
   // };
 
+  useEffect(() => {}, [AddtoCart, deleteItemCart, plusitem]);
+
   return (
     <>
       <div className="container">

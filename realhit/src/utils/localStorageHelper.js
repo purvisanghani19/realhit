@@ -8,6 +8,10 @@ export const setProductData = (data) => {
   localStorage.setItem("cartdata", JSON.stringify(data));
 };
 
+export const RemoveProductData = () => {
+  localStorage.setItem("cartdata", JSON.stringify([]));
+};
+
 //auth utils--------------------------------------------------------------------------
 
 export const getToken = () => {

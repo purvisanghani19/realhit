@@ -30,11 +30,25 @@ export default function AddressForm() {
   // console.log("PaymentUser-----", PaymentUser);
   const PaymentChange = (e) => {
     const { name, value } = e.target;
-    setPaymentUser({ ...PaymentUser, [name]: value });
+
+    // Validate and set postalCode
+    if (name === "postalCode" && /^[0-9]*$/.test(value) && value.length <= 9) {
+      setPaymentUser({ ...PaymentUser, [name]: value });
+    } else if (name !== "postalCode") {
+      setPaymentUser({ ...PaymentUser, [name]: value });
+    }
   };
 
   useEffect(() => {
-    setShippingDetails(PaymentUser);
+    setShippingDetails({
+      firstname: PaymentUser.firstname,
+      lastname: PaymentUser.lastname,
+      address: PaymentUser.address1 + "," + PaymentUser.address2,
+      city: PaymentUser.city,
+      state: PaymentUser.state,
+      postalCode: PaymentUser.postalCode,
+      country: PaymentUser.country,
+    });
   }, [PaymentUser]);
 
   return (
@@ -147,6 +161,7 @@ export default function AddressForm() {
           name="postalCode"
           value={PaymentUser.postalCode}
           onChange={PaymentChange}
+          inputProps={{ maxLength: 9 }}
         />
       </FormGrid>
       <FormGrid size={{ xs: 6 }}>

@@ -14,11 +14,7 @@ export default function Review() {
     useContext(PaymentContex);
   const { total } = useContext(CartContex);
 
-  const addresses = [
-    ShippingDetails.address1,
-    ShippingDetails.address2,
-    ShippingDetails.city,
-  ];
+  const addresses = [ShippingDetails.address, ShippingDetails.city];
 
   const cardNumber = cardDetails.cardNumber;
   const last4Digits = cardNumber.slice(-4);

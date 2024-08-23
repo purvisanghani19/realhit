@@ -20,6 +20,10 @@ const CartItem = new mongoose.Schema({
     type: Number,
     require: true,
   },
+  category: {
+    type: String,
+    require: true,
+  },
   total: {
     type: Number,
     require: true, // quantity * price
@@ -34,10 +38,11 @@ const PlaseOrder = new mongoose.Schema({
     address: { type: String, require: true },
     city: { type: String, require: true },
     state: { type: String, require: true },
-    postalCode: { type: String, require: true, max: 32 },
+    postalCode: { type: Number, require: true, max: 999999999 },
     country: { type: String, require: true },
   },
   orderDate: { type: Date, default: Date.now },
+  orderNumber: { type: Number, require: true, max: 9999999 },
 });
 
 module.exports = mongoose.model("orderdetail", PlaseOrder);

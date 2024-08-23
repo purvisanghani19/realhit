@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import axios from "axios";
+
 import { LoginContex } from "../../contexts/Context";
 
 const UserProfile = () => {
@@ -30,7 +30,7 @@ const UserProfile = () => {
   //   userDetails();
   // }, []);
 
-  return <div>UserProfile</div>;
+  return <div>UserProfile sdfsfsdfsd</div>;
 };
 
 export default UserProfile;

@@ -1,5 +1,6 @@
-const PlaceModel = require("../models/PlaceModel");
+const PlaceModel = require("../models/OrderPlaceModel");
 const UserModel = require("../models/UserModel");
+const crypto = require("crypto");
 const {
   generateAccessToken,
   generateRefreshAccessToken,
@@ -18,6 +19,11 @@ const UserRegister = async (req, res) => {
     return res.status(401).json({ result: "require email" });
   } else if (!password) {
     return res.status(401).json({ result: "require password" });
+  }
+
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!isValidEmail(email)) {
+    return res.status(400).json({ error: "Invalid email address" });
   }
 
   try {
@@ -55,15 +61,15 @@ const UserLogin = async (req, res) => {
     };
     //-------jwt token authentication----------
     const accessToken = generateAccessToken(userinfo);
-    const refreshToken = generateRefreshAccessToken(userinfo);
+    // const refreshToken = generateRefreshAccessToken(userinfo);
 
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true, //accsessible only on web server  ---// Prevents JavaScript from accessing the cookie
-      // sameSite: "strict",
-      secure: true, //https
-      sameSite: "None", //cross site cookie
-      maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expiry :set to match to refresh token
-    });
+    // res.cookie("refreshToken", refreshToken, {
+    //   httpOnly: true, //accsessible only on web server  ---// Prevents JavaScript from accessing the cookie
+    //   // sameSite: "strict",
+    //   secure: true, //https
+    //   sameSite: "None", //cross site cookie
+    //   maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expiry :set to match to refresh token
+    // });
 
     res.status(200).json({
       message: "logged in successfully",
@@ -134,10 +140,11 @@ const Logout = (req, res) => {
 
 const UserDetails = async (req, res) => {
   const { id } = req.params;
+  console.log("id", id);
 
   try {
     const userdata = await UserModel.findById(id);
-    res.status(200).json({ userdata });
+    if (!userdata) res.status(200).json({ userdata });
   } catch (error) {
     res.status(404).send(error);
   }
@@ -158,6 +165,20 @@ const UserPlaceOrder = async (req, res) => {
   }
   if (!shippingAddress) {
     return res.status(400).json({ result: "Shipping address is required" });
+  } else if (!shippingAddress.address) {
+    return res.status(400).json({ result: "Shipping address is required" });
+  } else if (!shippingAddress.city) {
+    return res.status(400).json({ result: "city is required" });
+  } else if (!shippingAddress.state) {
+    return res.status(400).json({ result: "state is required" });
+  } else if (!shippingAddress.postalCode) {
+    return res.status(400).json({ result: "postalCode is required" });
+  } else if (!shippingAddress.country) {
+    return res.status(400).json({ result: "country is required" });
+  }
+
+  function generateOrderNumber() {
+    return Math.floor(100000 + Math.random() * 900000);
   }
 
   try {
@@ -166,6 +187,7 @@ const UserPlaceOrder = async (req, res) => {
       items,
       totalAmount,
       shippingAddress,
+      orderNumber: generateOrderNumber(),
     });
     const result = await orderdetails.save();
 
@@ -176,16 +198,16 @@ const UserPlaceOrder = async (req, res) => {
       return moment(date).format("DD-MM-YYYY");
     }
     const now = new Date(orderdetails.orderDate);
-    //  formateDate(now);
 
     //user details------
     const useremail = await UserModel.findById(userId);
+
     // console.log("formateDate(now)----", formateDate(now));
     const usermail = useremail.email;
     const orderdate = formateDate(now);
     const username = useremail.name;
 
-    // //mail to user------
+    // mail to user------
     // const transporter = nodemailer.createTransport({
     //   service: "gmail",
     //   secure: true,
@@ -196,7 +218,7 @@ const UserPlaceOrder = async (req, res) => {
     //   },
     // });
 
-    // // Define email options
+    // // // Define email options
     // const mailOptions = {
     //   from: process.env.EMAIL_USER,
     //   to: usermail,
@@ -204,8 +226,9 @@ const UserPlaceOrder = async (req, res) => {
 
     //   html: `
     //   <p>Hi there, ${username}!</p>
-    //   <p>Thank you for Purchasing Order,totale ammount ${totalAmount}.</p>
-    //   <p>Order date${orderdate}</p>
+    //   <p>Thank you for your order!</p>
+    //   <p>Your order number is ${result.orderNumber}, will update you once its shipped.</p>
+    //   <p>Order date :${orderdate}</p>
     //   <p>Best regards,<br/>Realhit</p>
     // `,
     // };
@@ -213,9 +236,9 @@ const UserPlaceOrder = async (req, res) => {
     // // Send the email
     // await transporter.sendMail(mailOptions);
 
-    res.status(201).json({
-      message: "Order placed successfully Check Your Email For Invoice",
-      result,
+    res.status(200).json({
+      message: "Order placed successfully Check Your Email For Confirmation",
+      result: result.orderNumber,
     });
   } catch (error) {
     console.error("Error placing order:", error);

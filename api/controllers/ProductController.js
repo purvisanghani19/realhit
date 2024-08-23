@@ -33,13 +33,15 @@ const PostProductdata = async (req, res) => {
 const GetProductdata = async (req, res) => {
   try {
     const getdata = await productmodel.find({});
+    console.log("Products found:", getdata);
     if (getdata.length > 0) {
       res.status(200).json({ result: getdata });
     } else {
       res.status(400).json({ result: "No result Found !" });
     }
   } catch (error) {
-    res.status(400).json({ result: error });
+    console.error("Error fetching product data:", error);
+    res.status(500).json({ result: "Internal server error" });
   }
 };
 

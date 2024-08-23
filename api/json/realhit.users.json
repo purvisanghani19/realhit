@@ -1,9 +1,10 @@
 [{
   "_id": {
-    "$oid": "66b0c3c26d49a92f23b2aac3"
+    "$oid": "66c84f847224a201168e0529"
   },
   "name": "dipali",
-  "email": "dipalidcsdcfsd@gmail.com",
-  "password": "123443243fdfsdf",
+  "email": "dipalinikam0108@gmail.com",
+  "password": "$2b$10$P1AAvw8IbR8KNxRjHhCmVOQLaAwoweYn5K0sIiyG/3ejuSrzgddv2",
+  "usertype": "user",
   "__v": 0
 }]

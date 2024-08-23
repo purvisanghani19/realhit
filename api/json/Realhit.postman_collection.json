@@ -7,6 +7,178 @@
 	},
 	"item": [
 		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "User-Review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"userName\":\"dipali\",\r\n      \"email\":\"dipali@12234\",\r\n      \"title\":\"nice prodaauct\",\r\n      \"review\":\"very nice product\",\r\n      \"productId\":\"66aa06357af5ded04604abd2\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5500/review/post",
+							"host": [
+								"localhost"
+							],
+							"port": "5500",
+							"path": [
+								"review",
+								"post"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "userRegister",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"dipali\",\r\n    \"email\":\"dipali@gmail.com@gmail.com\",\r\n    \"password\":\"dipali\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5500/user/register",
+							"host": [
+								"localhost"
+							],
+							"port": "5500",
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"dipali@gmail.com@gmail.com\",\r\n    \"password\":\"dipali\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5500/user/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5500",
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-user-details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGlwYWxpIiwidXNlcnR5cGUiOiJ1c2VyIiwiX2lkIjoiNjZjODM0YzRlZmEyY2RjODJkZDQzZTczIiwiaWF0IjoxNzI0NDAyNTMyLCJleHAiOjE3MjQ0MDQzMzJ9.wUKY2pDjhEfUyWw81KBOuFGgNVpr-_cN1sgh7_DkmGs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5500/user/get-user-details/66c834c4efa2cdc82dd43e73",
+							"host": [
+								"localhost"
+							],
+							"port": "5500",
+							"path": [
+								"user",
+								"get-user-details",
+								"66c834c4efa2cdc82dd43e73"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "66b225b96385905d0ad4c438",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserPlaceOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGlwYWxpIiwidXNlcnR5cGUiOiJ1c2VyIiwiX2lkIjoiNjZjODM0YzRlZmEyY2RjODJkZDQzZTczIiwiaWF0IjoxNzI0Mzk2NzYzLCJleHAiOjE3MjQzOTg1NjN9.ExC5tkCCoMzwjpVucD4iyy_8onv-98YJrffk2tccBV0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"66c834c4efa2cdc82dd43e73\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"66aa06357af5ded04604abd2\",\r\n            \"name\": \"Enjoy The Wind Oversized Tshirt\",\r\n            \"quantity\": \"4\",\r\n            \"price\": \"1199\",\r\n            \"total\": \"4796\",\r\n            \"category\": \"tshirt\"\r\n        },\r\n        {\r\n            \"itemId\": \"66aa066b7af5ded04604abd4\",\r\n            \"name\": \"Nightmares Skull Oversized Tshirt\",\r\n            \"quantity\": \"3\",\r\n            \"price\": \"1199\",\r\n            \"total\": \"3597\",\r\n            \"category\": \"tshirt\"\r\n        }\r\n    ],\r\n    \"totalAmount\": \"8393\",\r\n    \"shippingAddress\": {\r\n        \"address\": \"210,rajhans tower,mota varachha\",\r\n        \"city\": \"surat\",\r\n        \"state\": \"gujrat\",\r\n        \"postalCode\": \" 394101\",\r\n        \"country\": \"india\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5500/user/placeorder",
+							"host": [
+								"localhost"
+							],
+							"port": "5500",
+							"path": [
+								"user",
+								"placeorder"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "post-pdata",
 			"request": {
 				"method": "POST",
@@ -16,7 +188,7 @@
 					"formdata": [
 						{
 							"key": "name",
-							"value": "Tshirt",
+							"value": "Hoodies",
 							"type": "text"
 						},
 						{
@@ -85,42 +257,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:5500/product/get-single-product",
+					"raw": "localhost:5500/product/get-single-product/66aa082b7af5ded04604abe4",
 					"host": [
 						"localhost"
 					],
 					"port": "5500",
 					"path": [
 						"product",
-						"get-single-product"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "userRegister",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\":\"dipali\",\r\n    \"email\":\"dipali12@gmail.com\",\r\n    \"password\":\"123\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:5500/user/register",
-					"host": [
-						"localhost"
-					],
-					"port": "5500",
-					"path": [
-						"user",
-						"register"
+						"get-single-product",
+						"66aa082b7af5ded04604abe4"
 					]
 				}
 			},

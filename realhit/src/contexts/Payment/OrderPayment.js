@@ -1,30 +1,42 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContex, PaymentContex } from "../Context";
-import { getProductData, getUserdetails } from "../../utils/localStorageHelper";
+import { getProductData } from "../../utils/localStorageHelper";
 
 const OrderPayment = (props) => {
-  const [ShippingDetails, setShippingDetails] = useState();
+  const [ShippingDetails, setShippingDetails] = useState({
+    firstname: "",
+    lastname: "",
+    address: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    country: "",
+  });
+
   const [cardDetails, setcardDetails] = useState({
     cardNumber: "",
     paymentType: "",
     expirationDate: "",
     Cardholder: "",
   });
-  const { total } = useContext(CartContex);
+
+  const [ProductDetails, setProductDetails] = useState([]);
+
+  const { total, AddtoCart } = useContext(CartContex);
   const finalTotal = total + 50;
 
-  const userid = getUserdetails();
-
-  const [ProductDetails, setProductDetails] = useState(getProductData());
-
-  const [OrderApiData, setOrderApiData] = useState({
-    userId: userid._id,
-    items: ProductDetails,
-    totalAmount: finalTotal,
-    shippingAddress: ShippingDetails,
-  });
-
-  console.log("OrderApiData", OrderApiData);
+  useEffect(() => {
+    const prodata = getProductData();
+    const transformedData = prodata.map((item) => ({
+      itemId: item._id,
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price,
+      total: item.quantity * item.price,
+      category: item.category,
+    }));
+    setProductDetails(transformedData);
+  }, [AddtoCart]);
 
   return (
     <>

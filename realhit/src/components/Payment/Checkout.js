@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 
 import Box from "@mui/material/Box";
@@ -29,9 +29,17 @@ import InfoMobile from "./InfoMobile";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 import ToggleColorMode from "./ToggleColorMode";
-import { CartContex, PaymentContex } from "../../contexts/Context.js";
+import { PaymentContex } from "../../contexts/Context.js";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useWindowSize } from "react-use";
+import Confetti from "react-confetti";
+import {
+  getToken,
+  getUserdetails,
+  RemoveProductData,
+} from "../../utils/localStorageHelper.js";
+import { CircularProgress } from "@mui/material";
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
@@ -93,6 +101,9 @@ export default function Checkout() {
   const [mode, setMode] = React.useState("light");
   const [showCustomTheme, setShowCustomTheme] = React.useState(true);
   const checkoutTheme = createTheme(getCheckoutTheme(mode));
+  const [Order, setOrder] = useState("");
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [Loding, setLoding] = useState(false);
 
   const defaultTheme = createTheme({ palette: { mode } });
   const [activeStep, setActiveStep] = React.useState(0);
@@ -122,34 +133,63 @@ export default function Checkout() {
 
   const { ProductDetails, ShippingDetails, finalTotal } =
     useContext(PaymentContex);
-  console.log("pro", ProductDetails);
-  console.log("ship", ShippingDetails);
+
+  const userdetails = getUserdetails();
+  const token = getToken();
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
+      setLoding(true);
+      const orderdetails = {
+        userId: userdetails._id,
+        items: ProductDetails,
+        totalAmount: finalTotal,
+        shippingAddress: ShippingDetails,
+      };
       const PlaceorderApi = async () => {
-        // try {
-        //   const res = axios.post(
-        //     "http://localhost:5500/user/placeorder"
-        //     // payload
-        //   );
-        //   console.log("res", res);
-        // } catch (error) {
-        //   console.log("error.response.data", error);
-        //   if (error.response.status === 409) {
-        //     toast.error(error.response.data);
-        //   }
-        // }
+        try {
+          const res = await axios.post(
+            "http://localhost:5500/user/placeorder",
+            orderdetails,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`, // Set the Bearer token in headers
+              },
+            }
+          );
+          console.log("res------", res);
+          if (res.status === 200) {
+            toast.success(res.data.message);
+            setActiveStep(activeStep + 1);
+            setShowConfetti(true);
+            setLoding(false);
+            RemoveProductData();
+            setOrder(res?.data?.result);
+          } else {
+            toast.error("fail to create order");
+          }
+        } catch (error) {
+          setLoding(false);
+          console.log("error.response.data", error);
+          if (error.response.status === 400) {
+            toast.error(error.response.data);
+          }
+        } finally {
+          setLoding(false);
+        }
       };
 
       PlaceorderApi();
+    } else {
+      setActiveStep(activeStep + 1);
     }
-    setActiveStep(activeStep + 1);
   };
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
+  //  <Confetti------
+  const { width, height } = useWindowSize();
   return (
     <ThemeProvider theme={showCustomTheme ? checkoutTheme : defaultTheme}>
       <CssBaseline />
@@ -326,13 +366,35 @@ export default function Checkout() {
                 </Step>
               ))}
             </Stepper>
-            {activeStep === steps.length ? (
+            {showConfetti && (
+              <Confetti
+                width={width}
+                height={height}
+                recycle={false}
+                numberOfPieces={400}
+                gravity={0.2}
+                tweenDuration={3000}
+              />
+            )}
+
+            {Loding ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100%",
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            ) : activeStep === steps.length ? (
               <Stack spacing={2} useFlexGap>
                 <Typography variant="h1">📦</Typography>
                 <Typography variant="h5">Thank you for your order!</Typography>
                 <Typography variant="body1" sx={{ color: "text.secondary" }}>
                   Your order number is
-                  <strong>&nbsp;#140396</strong>. We have emailed your order
+                  <strong>&nbsp;#{Order}</strong>. We have emailed your order
                   confirmation and will update you once its shipped.
                 </Typography>
                 <Button
