@@ -40,6 +40,7 @@ import {
   RemoveProductData,
 } from "../../utils/localStorageHelper.js";
 import { CircularProgress } from "@mui/material";
+import BaseApi from "../../api/BaseApi.js";
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
@@ -148,15 +149,11 @@ export default function Checkout() {
       };
       const PlaceorderApi = async () => {
         try {
-          const res = await axios.post(
-            "http://localhost:5500/user/placeorder",
-            orderdetails,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`, // Set the Bearer token in headers
-              },
-            }
-          );
+          const res = await BaseApi.post("/user/placeorder", orderdetails, {
+            headers: {
+              Authorization: `Bearer ${token}`, // Set the Bearer token in headers
+            },
+          });
           console.log("res------", res);
           if (res.status === 200) {
             toast.success(res.data.message);

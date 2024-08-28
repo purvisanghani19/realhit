@@ -6,6 +6,7 @@ import ProductContainer from "./ProductContainer";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { CartContex } from "../../contexts/Context";
+import BaseApi from "../../api/BaseApi";
 
 const ViewProductDetails = () => {
   const location = useLocation();
@@ -24,8 +25,8 @@ const ViewProductDetails = () => {
   useEffect(() => {
     const getSingleProduct = async () => {
       try {
-        const data = await axios.get(
-          `http://localhost:5500/product/get-single-product/${product}`
+        const data = await BaseApi.get(
+          `/product/get-single-product/${product}`
         );
         // console.log("data", data?.data);
         if (data.status === 200) {
@@ -46,7 +47,7 @@ const ViewProductDetails = () => {
   useEffect(() => {
     const getdata = async () => {
       try {
-        const data = await axios.get("http://localhost:5500/product/get");
+        const data = await BaseApi.get("/product/get");
         if (data.status === 200) {
           setProduct(data.data.result);
         }

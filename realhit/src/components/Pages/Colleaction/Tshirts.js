@@ -3,6 +3,7 @@ import SecoundGifbanner from "../../../img/banner/secound_GIF.jpg";
 import Banner from "../../Containers/Banner";
 import ProductContainer from "../../Containers/ProductContainer";
 import axios from "axios";
+import BaseApi from "../../../api/BaseApi";
 
 const Tshirts = () => {
   const [Product, setProduct] = useState([]);
@@ -10,7 +11,7 @@ const Tshirts = () => {
 
   const getdata = async () => {
     try {
-      const data = await axios.get("http://localhost:5500/product/get");
+      const data = await BaseApi.get("/product/get");
       // console.log("data", data);
       if (data.status == 200) {
         setProduct(data.data.result);

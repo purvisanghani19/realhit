@@ -20,6 +20,7 @@ import "./home.css";
 import axios from "axios";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CartContex } from "../../contexts/Context";
+import BaseApi from "../../api/BaseApi";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ const Home = () => {
 
   const getdata = async () => {
     try {
-      const data = await axios.get("http://localhost:5500/product/get");
+      const data = await BaseApi.get("/product/get");
       // console.log("data", data);
       if (data.status == 200) {
         setProduct(data.data.result);

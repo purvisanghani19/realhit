@@ -1,20 +1,17 @@
-import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-
-const api = axios.create({
-  baseURL: "http://localhost:5500",
-  withCredentials: true, // This allows cookies to be sent with requests
-});
+import BaseApi from "./BaseApi";
 
 // Function to refresh the access token
 const refreshAccessToken = async () => {
   try {
-    const response = await api.post("/user/refresh");
+    const response = await BaseApi.post("/user/refresh");
     const newAccessToken = response.data.accessToken;
     const decodedToken = jwtDecode(newAccessToken);
     isTokenExpired(decodedToken.exp);
 
-    api.defaults.headers.common["Authorization"] = `Bearer ${newAccessToken}`;
+    BaseApi.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${newAccessToken}`;
 
     return newAccessToken;
   } catch (error) {
@@ -48,9 +45,9 @@ export const isTokenExpired = (tokenExpiry) => {
 };
 
 // Axios request interceptor
-api.interceptors.request.use(
+BaseApi.interceptors.request.use(
   (config) => {
-    const token = api.defaults.headers.common["Authorization"];
+    const token = BaseApi.defaults.headers.common["Authorization"];
     if (token) {
       config.headers["Authorization"] = token;
     }
@@ -60,7 +57,7 @@ api.interceptors.request.use(
 );
 
 // Axios response interceptor to handle 401 errors (unauthorized)
-api.interceptors.response.use(
+BaseApi.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
@@ -70,7 +67,7 @@ api.interceptors.response.use(
       const newAccessToken = await refreshAccessToken();
       if (newAccessToken) {
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-        return api(originalRequest); // Retry the original request with the new token
+        return BaseApi(originalRequest); // Retry the original request with the new token
       } else {
         await logoutUser(); // Clear cookies, state, etc.
         window.location.href = "/login"; // Redirect to login page
@@ -84,8 +81,8 @@ api.interceptors.response.use(
 
 export const logoutUser = async () => {
   try {
-    await api.post("/user/logout"); // Backend API to clear cookies
-    api.defaults.headers.common["Authorization"] = null;
+    await BaseApi.post("/user/logout"); // Backend API to clear cookies
+    BaseApi.defaults.headers.common["Authorization"] = null;
     clearTimeout(refreshTimeout); // Clear the token refresh timeout
     // Clear any stored state or tokens in the frontend
     // Redirect to login
@@ -95,4 +92,4 @@ export const logoutUser = async () => {
   }
 };
 
-export default api;
+export default BaseApi;

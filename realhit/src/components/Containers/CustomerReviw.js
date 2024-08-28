@@ -4,6 +4,7 @@ import { MdUploadFile } from "react-icons/md";
 import { toast } from "react-toastify";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import buffer from "../../Lotties/Buffer.json";
+import BaseApi from "../../api/BaseApi";
 
 const CustomerReviw = ({ productId }) => {
   const [open, setopen] = useState(false);
@@ -44,10 +45,7 @@ const CustomerReviw = ({ productId }) => {
     validateFields();
 
     try {
-      const review = await axios.post(
-        "http://localhost:5500/review/post",
-        Review
-      );
+      const review = await BaseApi.post("/review/post", Review);
       // console.log("review----------", review);
       if (review.status === 200) {
         toast.success(review.data.message);

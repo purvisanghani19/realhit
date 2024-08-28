@@ -9,6 +9,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import api, { isTokenExpired } from "../../api/RefreshToken";
 import { jwtDecode } from "jwt-decode";
 import useRedirectAfterLogin from "../../CustomHook/useRedirectAfterLogin.js";
+import BaseApi from "../../api/RefreshToken";
 
 const RegisterModel = () => {
   const [open, setOpen] = useState(false);
@@ -47,10 +48,7 @@ const RegisterModel = () => {
     }
 
     try {
-      const data = await axios.post(
-        "http://localhost:5500/user/register",
-        Register
-      );
+      const data = await BaseApi.post("/user/register", Register);
       console.log("data---", data);
       if (data.status === 201) {
         toast.success(data.data.message);
@@ -74,7 +72,7 @@ const RegisterModel = () => {
     }
 
     try {
-      const data = await axios.post("http://localhost:5500/user/login", Login);
+      const data = await BaseApi.post("/user/login", Login);
       console.log("data-----------------", data);
       const accessToken = data.data.token;
       console.log("accessToken-----", accessToken);
