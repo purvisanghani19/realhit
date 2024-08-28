@@ -49,7 +49,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"dipali\",\r\n    \"email\":\"dipali@gmail.com@gmail.com\",\r\n    \"password\":\"dipali\"\r\n\r\n}",
+							"raw": "{\r\n    \"name\":\"dipali\",\r\n    \"email\":\"dipalinikam0108@gmail.com\",\r\n    \"password\":\"dipali\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -80,7 +80,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"dipali@gmail.com@gmail.com\",\r\n    \"password\":\"dipali\"\r\n}",
+							"raw": "{\r\n    \"email\":\"dipalinikam0108@gmail.com\",\r\n    \"password\":\"dipali\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -146,7 +146,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGlwYWxpIiwidXNlcnR5cGUiOiJ1c2VyIiwiX2lkIjoiNjZjODM0YzRlZmEyY2RjODJkZDQzZTczIiwiaWF0IjoxNzI0Mzk2NzYzLCJleHAiOjE3MjQzOTg1NjN9.ExC5tkCCoMzwjpVucD4iyy_8onv-98YJrffk2tccBV0",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGlwYWxpIiwidXNlcnR5cGUiOiJ1c2VyIiwiX2lkIjoiNjZjODRmODQ3MjI0YTIwMTE2OGUwNTI5IiwiaWF0IjoxNzI0NDExMTI4LCJleHAiOjE3MjQ0MTI5Mjh9.z07pPodMXt0DAELgaJ6fD25YVADFN9ncwd-b2tvIb04",
 									"type": "string"
 								}
 							]
@@ -155,7 +155,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\": \"66c834c4efa2cdc82dd43e73\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"66aa06357af5ded04604abd2\",\r\n            \"name\": \"Enjoy The Wind Oversized Tshirt\",\r\n            \"quantity\": \"4\",\r\n            \"price\": \"1199\",\r\n            \"total\": \"4796\",\r\n            \"category\": \"tshirt\"\r\n        },\r\n        {\r\n            \"itemId\": \"66aa066b7af5ded04604abd4\",\r\n            \"name\": \"Nightmares Skull Oversized Tshirt\",\r\n            \"quantity\": \"3\",\r\n            \"price\": \"1199\",\r\n            \"total\": \"3597\",\r\n            \"category\": \"tshirt\"\r\n        }\r\n    ],\r\n    \"totalAmount\": \"8393\",\r\n    \"shippingAddress\": {\r\n        \"address\": \"210,rajhans tower,mota varachha\",\r\n        \"city\": \"surat\",\r\n        \"state\": \"gujrat\",\r\n        \"postalCode\": \" 394101\",\r\n        \"country\": \"india\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"userId\": \"66c84f847224a201168e0529\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"66aa06357af5ded04604abd2\",\r\n            \"name\": \"Enjoy The Wind Oversized Tshirt\",\r\n            \"quantity\": \"4\",\r\n            \"price\": \"1199\",\r\n            \"total\": \"4796\",\r\n            \"category\": \"tshirt\"\r\n        },\r\n        {\r\n            \"itemId\": \"66aa066b7af5ded04604abd4\",\r\n            \"name\": \"Nightmares Skull Oversized Tshirt\",\r\n            \"quantity\": \"3\",\r\n            \"price\": \"1199\",\r\n            \"total\": \"3597\",\r\n            \"category\": \"tshirt\"\r\n        }\r\n    ],\r\n    \"totalAmount\": \"8393\",\r\n    \"shippingAddress\": {\r\n        \"address\": \"210,rajhans tower,mota varachha\",\r\n        \"city\": \"surat\",\r\n        \"state\": \"gujrat\",\r\n        \"postalCode\": \"\",\r\n        \"country\": \"india\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
