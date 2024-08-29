@@ -27,6 +27,8 @@ const AuthState = (props) => {
   );
   //for register & login form to render end------
 
+  useEffect(() => {}, [formState, isLoginPage]);
+
   return (
     <>
       <LoginContex.Provider
