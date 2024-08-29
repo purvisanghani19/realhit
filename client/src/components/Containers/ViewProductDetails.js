@@ -56,7 +56,7 @@ const ViewProductDetails = () => {
       }
     };
     getdata();
-  }, []);
+  }, [singleProduct]);
 
   useEffect(() => {
     if (singleProduct && Product.length > 0) {
