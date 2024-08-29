@@ -208,33 +208,33 @@ const UserPlaceOrder = async (req, res) => {
     const username = useremail.name;
 
     // mail to user------
-    // const transporter = nodemailer.createTransport({
-    //   service: "gmail",
-    //   secure: true,
-    //   port: 465,
-    //   auth: {
-    //     user: process.env.EMAIL_ADMIN,
-    //     pass: process.env.EMAIL_PASS,
-    //   },
-    // });
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      secure: true,
+      port: 465,
+      auth: {
+        user: process.env.EMAIL_ADMIN,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
 
-    // // // Define email options
-    // const mailOptions = {
-    //   from: process.env.EMAIL_USER,
-    //   to: usermail,
-    //   subject: "🎉 Hooray! Your Order is Placed – Here’s the Scoop!",
+    // // Define email options
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: usermail,
+      subject: "🎉 Hooray! Your Order is Placed – Here’s the Scoop!",
 
-    //   html: `
-    //   <p>Hi there, ${username}!</p>
-    //   <p>Thank you for your order!</p>
-    //   <p>Your order number is ${result.orderNumber}, will update you once its shipped.</p>
-    //   <p>Order date :${orderdate}</p>
-    //   <p>Best regards,<br/>Realhit</p>
-    // `,
-    // };
+      html: `
+      <p>Hi there, ${username}!</p>
+      <p>Thank you for your order!</p>
+      <p>Your order number is ${result.orderNumber}, will update you once its shipped.</p>
+      <p>Order date :${orderdate}</p>
+      <p>Best regards,<br/>Realhit</p>
+    `,
+    };
 
-    // // Send the email
-    // await transporter.sendMail(mailOptions);
+    // Send the email
+    await transporter.sendMail(mailOptions);
 
     res.status(200).json({
       message: "Order placed successfully Check Your Email For Confirmation",
