@@ -27,7 +27,9 @@ const ComparePass = async (req, res, next) => {
   try {
     const user = await UserModel.findOne({ email });
     if (!user) {
-      return res.status(401).json({ result: "Email Invalid" });
+      return res
+        .status(401)
+        .json({ result: "Email Invalid ! Please use correct Email Address " });
     }
 
     const ismatch = await bcrypt.compare(password, user.password);

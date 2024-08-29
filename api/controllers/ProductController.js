@@ -33,7 +33,7 @@ const PostProductdata = async (req, res) => {
 const GetProductdata = async (req, res) => {
   try {
     const getdata = await productmodel.find({});
-    console.log("Products found:", getdata);
+    // console.log("Products found:", getdata);
     if (getdata.length > 0) {
       res.status(200).json({ result: getdata });
     } else {

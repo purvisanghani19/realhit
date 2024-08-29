@@ -9,7 +9,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import api, { isTokenExpired } from "../../api/RefreshToken";
 import { jwtDecode } from "jwt-decode";
 import useRedirectAfterLogin from "../../CustomHook/useRedirectAfterLogin.js";
-import BaseApi from "../../api/RefreshToken";
+import BaseApi from "../../api/BaseApi.js";
 
 const RegisterModel = () => {
   const [open, setOpen] = useState(false);
@@ -65,6 +65,7 @@ const RegisterModel = () => {
 
   const GetLogin = async (e) => {
     e.preventDefault();
+
     if (!Login.email) {
       return toast.error("email required");
     } else if (!Login.password) {
@@ -73,7 +74,7 @@ const RegisterModel = () => {
 
     try {
       const data = await BaseApi.post("/user/login", Login);
-      console.log("data-----------------", data);
+
       const accessToken = data.data.token;
       console.log("accessToken-----", accessToken);
       if (data.status === 200) {
@@ -95,6 +96,8 @@ const RegisterModel = () => {
           email: "",
           password: "",
         });
+      } else {
+        toast.error(data.data.message);
       }
     } catch (error) {
       console.log("error.response.data", error);
@@ -249,8 +252,8 @@ const RegisterModel = () => {
                   <div className="mb-3 d-flex justify-content-end">
                     <label className="form-check-label">Forgot password?</label>
                   </div>
-                  <button type="submit" className="submitbtn  w-50">
-                    Create a Account
+                  <button type="submit" className="submitbtn w-50">
+                    {formState === "register" ? "Create an Account" : "Login"}
                   </button>
                 </form>
               </>

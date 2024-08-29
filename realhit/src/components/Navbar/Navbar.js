@@ -10,13 +10,14 @@ import cart from "../../svg/cart.svg";
 import logo from "../../logo/The_Realhit_Store_Logo_L.png";
 import "./Navbar.css";
 import "animate.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { CartContex, LoginContex } from "../../contexts/Context";
 import UseAvatar from "./UseAvatar";
 import { logoutUser } from "../../api/RefreshToken";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const context = useContext(CartContex);
   const {
@@ -30,13 +31,14 @@ const Navbar = () => {
   } = useContext(LoginContex);
 
   const logouthandlerbtn = () => {
-    logoutUser();
+    // logoutUser();
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     localStorage.removeItem("usertype");
     setuserDetails("");
     setTokenlocal("");
     setUserType("");
+    navigate("/login");
   };
 
   const newname = userDetails ? userDetails?.name?.charAt(0) : "";
