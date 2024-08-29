@@ -16,7 +16,8 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000", // or your frontend's URL
+    // origin: "http://localhost:3000", // or your frontend's URL
+    origin: "https://realhit.onrender.com", // or your frontend's URL
     credentials: true,
   })
 );
