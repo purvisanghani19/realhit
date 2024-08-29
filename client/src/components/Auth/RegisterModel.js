@@ -9,7 +9,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import api, { isTokenExpired } from "../../api/RefreshToken";
 import { jwtDecode } from "jwt-decode";
 import useRedirectAfterLogin from "../../CustomHook/useRedirectAfterLogin.js";
-import BaseApi from "../../api/BaseApi.js";
+import { BaseApi } from "../../api/BaseApi.js";
 
 const RegisterModel = () => {
   const [open, setOpen] = useState(false);

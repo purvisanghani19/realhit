@@ -3,7 +3,7 @@ import SecoundGifbanner from "../../../img/banner/secound_GIF.jpg";
 import Banner from "../../Containers/Banner";
 import ProductContainer from "../../Containers/ProductContainer";
 import axios from "axios";
-import BaseApi from "../../../api/BaseApi";
+import { BaseApi } from "../../../api/BaseApi";
 
 const Tshirts = () => {
   const [Product, setProduct] = useState([]);

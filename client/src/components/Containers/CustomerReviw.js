@@ -4,7 +4,7 @@ import { MdUploadFile } from "react-icons/md";
 import { toast } from "react-toastify";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import buffer from "../../Lotties/Buffer.json";
-import BaseApi from "../../api/BaseApi";
+import { BaseApi } from "../../api/BaseApi";
 
 const CustomerReviw = ({ productId }) => {
   const [open, setopen] = useState(false);

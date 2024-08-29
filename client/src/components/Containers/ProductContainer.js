@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { imgApi } from "../../api/BaseApi";
 
 const ProductContainer = ({ Products, title }) => {
   // console.log("product----", Products);
@@ -24,7 +25,7 @@ const ProductContainer = ({ Products, title }) => {
             >
               <div className="img-container">
                 <img
-                  src={`http://localhost:5500${item.Img}`}
+                  src={`${imgApi}${item.Img}`}
                   alt="blue tshirt"
                   className="img-fluid rounded-1"
                 />

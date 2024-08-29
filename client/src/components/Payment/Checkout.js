@@ -40,7 +40,7 @@ import {
   RemoveProductData,
 } from "../../utils/localStorageHelper.js";
 import { CircularProgress } from "@mui/material";
-import BaseApi from "../../api/BaseApi.js";
+import { BaseApi } from "../../api/BaseApi.js";
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (

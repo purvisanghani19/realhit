@@ -20,7 +20,7 @@ import "./home.css";
 import axios from "axios";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CartContex } from "../../contexts/Context";
-import BaseApi from "../../api/BaseApi";
+import { BaseApi, imgApi } from "../../api/BaseApi";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -120,7 +120,7 @@ const Home = () => {
           <div className="row row-cols-1 row-cols-md-2 my-3">
             <div className="cart-parent-container">
               <img
-                src={`http://localhost:5500${latestPro.Img}`}
+                src={`${imgApi}${latestPro.Img}`}
                 alt="person in t-shirt"
                 className=" rounded-3 img-fluid cart-child-image "
               />

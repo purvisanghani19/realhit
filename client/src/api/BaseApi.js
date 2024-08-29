@@ -6,4 +6,6 @@ const BaseApi = axios.create({
   withCredentials: true, // This allows cookies to be sent with requests
 });
 
-export default BaseApi;
+const imgApi = "https://realhit-backend.onrender.com";
+
+export { BaseApi, imgApi };

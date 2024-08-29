@@ -6,7 +6,7 @@ import ProductContainer from "./ProductContainer";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { CartContex } from "../../contexts/Context";
-import BaseApi from "../../api/BaseApi";
+import { BaseApi, imgApi } from "../../api/BaseApi";
 
 const ViewProductDetails = () => {
   const location = useLocation();
@@ -89,7 +89,7 @@ const ViewProductDetails = () => {
       <div className="row row-cols-1 row-cols-md-2 my-3">
         <div className="h-100">
           <img
-            src={`http://localhost:5500${singleProduct?.Img}`}
+            src={`${imgApi}${singleProduct?.Img}`}
             alt="person in t-shirt"
             className="rounded-3 img-fluid w-100 h-75"
           />

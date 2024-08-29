@@ -8,6 +8,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { getProductData, setProductData } from "../utils/localStorageHelper";
 import { CartContex } from "../contexts/Context";
 import useRedirectAfterLogin from "../CustomHook/useRedirectAfterLogin.js";
+import { imgApi } from "../api/BaseApi.js";
 const Cart = () => {
   const { AddtoCart, total, removeitem, plusitem, deleteItemCart } =
     useContext(CartContex);
@@ -82,7 +83,7 @@ const Cart = () => {
                       <div className="row">
                         <div className="col-4 ">
                           <img
-                            src={`http://localhost:5500${item.Img}`}
+                            src={`${imgApi}${item.Img}`}
                             width={160}
                             height={250}
                             alt="blue tshirt"
