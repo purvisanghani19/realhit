@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import SecoundGifbanner from "../../../img/banner/secound_GIF.jpg";
 import Banner from "../../Containers/Banner";
 import ProductContainer from "../../Containers/ProductContainer";
-import axios from "axios";
 import { BaseApi } from "../../../api/BaseApi";
 
 const Tshirts = () => {
@@ -14,7 +13,9 @@ const Tshirts = () => {
       const data = await BaseApi.get("/product/get");
       // console.log("data", data);
       if (data.status == 200) {
-        setProduct(data.data.result);
+        const products = data.data.result;
+        const tshirts = products?.filter((item) => item.category === "tshirt");
+        setProduct(tshirts);
       }
     } catch (error) {
       console.log(error);
@@ -23,6 +24,7 @@ const Tshirts = () => {
 
   useEffect(() => {
     getdata();
+    window.scrollTo(0, 0);
   }, []);
 
   return (

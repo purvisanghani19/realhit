@@ -57,6 +57,7 @@ const CustomerReviw = ({ productId }) => {
           productId: productId,
         });
         setopen(!open);
+        window.scrollTo(0, 0);
         setLoding(false);
       }
     } catch (error) {

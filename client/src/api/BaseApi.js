@@ -7,5 +7,6 @@ const BaseApi = axios.create({
 });
 
 const imgApi = "https://realhit-backend.onrender.com";
+// const imgApi = "http://localhost:5500";
 
 export { BaseApi, imgApi };

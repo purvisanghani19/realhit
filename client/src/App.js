@@ -10,7 +10,7 @@ import Tshirts from "./components/Pages/Colleaction/Tshirts";
 import PageNotFound from "./components/Pages/PageNotFound";
 import Hoddies from "./components/Pages/Colleaction/Hoddies";
 import Sweatshirts from "./components/Pages/Colleaction/Sweatshirts";
-import OversizeTshirt from "./components/Pages/Colleaction/OversizeTshirt";
+import PoloTshirts from "./components/Pages/Colleaction/PoloTshirts";
 import RegisterModel from "../src/components/Auth/RegisterModel";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -44,8 +44,8 @@ function App() {
           element={<Sweatshirts />}
         ></Route>
         <Route
-          path="/colleaction/oversized-t-shirt"
-          element={<OversizeTshirt />}
+          path="/colleaction/poloTshirts"
+          element={<PoloTshirts />}
         ></Route>
 
         <Route element={<AdminRoutes />}>

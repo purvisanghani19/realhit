@@ -108,7 +108,7 @@ const Footer = () => {
         <div className="container-fluid h-25 bg-black">
           <div className="container text-white py-5 d-flex flex-column text-center ">
             <div className="py-4">
-              <a href="/">
+              <div>
                 <img
                   src={logo}
                   width={225}
@@ -116,7 +116,7 @@ const Footer = () => {
                   alt="logo"
                   className="logo_img"
                 />
-              </a>
+              </div>
             </div>
             <div>
               <div className=" py-3">

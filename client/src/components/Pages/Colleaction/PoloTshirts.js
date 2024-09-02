@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import ProductContainer from "../../Containers/ProductContainer";
-import Banner from "../../Containers/Banner";
-import sweatshirtbanner from "../../../img/banner/fourth_GIF.jpg";
 import { BaseApi } from "../../../api/BaseApi";
+import Banner from "../../Containers/Banner";
+import ProductContainer from "../../Containers/ProductContainer";
+import polobanner from "../../../img/banner/polobanner.jpg";
 
-const Sweatshirts = () => {
+const PoloTshirts = () => {
   const [Product, setProduct] = useState([]);
   // console.log("Product", Product);
 
@@ -14,27 +14,25 @@ const Sweatshirts = () => {
       // console.log("data", data);
       if (data.status == 200) {
         const products = data.data.result;
-        const tshirts = products?.filter(
-          (item) => item.category === "setsweatshirts"
-        );
+        const tshirts = products?.filter((item) => item.category === "polos");
         setProduct(tshirts);
       }
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getdata();
-  }, [Product]);
-
+  }, []);
   return (
     <>
-      <Banner srcImg={sweatshirtbanner} />
+      <Banner srcImg={polobanner} />
       <div className="container-lg py-4">
-        <ProductContainer title={"SWEATSHIRTS FOR MEN"} Products={Product} />
+        <ProductContainer title={"OLD MONEY POLOS"} Products={Product} />
       </div>
     </>
   );
 };
 
-export default Sweatshirts;
+export default PoloTshirts;

@@ -106,21 +106,34 @@ const Navbar = () => {
                         to="/"
                         className="text-decoration-none link-light"
                       >
-                        <li className="list-list-group-item py-2">Home</li>
+                        <li
+                          data-bs-dismiss="offcanvas"
+                          className="list-list-group-item py-2"
+                        >
+                          Home
+                        </li>
                       </NavLink>
 
                       <NavLink
                         to="/colleaction/tshirt"
                         className="text-decoration-none link-light"
                       >
-                        <li className="list-list-group-item py-2">T-shirts</li>
+                        <li
+                          data-bs-dismiss="offcanvas"
+                          className="list-list-group-item py-2"
+                        >
+                          T-shirts
+                        </li>
                       </NavLink>
                       <NavLink
-                        to="/colleaction/oversized-t-shirt"
+                        to="/colleaction/poloTshirts"
                         className="text-decoration-none link-light"
                       >
-                        <li className="list-list-group-item py-2">
-                          oversized t-shirts
+                        <li
+                          data-bs-dismiss="offcanvas"
+                          className="list-list-group-item py-2"
+                        >
+                          Old Money polos
                         </li>
                       </NavLink>
 
@@ -128,14 +141,22 @@ const Navbar = () => {
                         to="/colleaction/hoodies"
                         className="text-decoration-none link-light"
                       >
-                        <li className="list-list-group-item py-2">hoodies</li>
+                        <li
+                          data-bs-dismiss="offcanvas"
+                          className="list-list-group-item py-2"
+                        >
+                          hoodies
+                        </li>
                       </NavLink>
 
                       <NavLink
                         to="/colleaction/sweatshirts"
                         className="text-decoration-none link-light"
                       >
-                        <li className="list-list-group-item py-2">
+                        <li
+                          data-bs-dismiss="offcanvas"
+                          className="list-list-group-item py-2"
+                        >
                           sweatshirts
                         </li>
                       </NavLink>

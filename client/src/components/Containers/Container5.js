@@ -3,11 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { imgApi } from "../../api/BaseApi";
 
 const Container5 = ({ data }) => {
-  // console.log("data", data);
   const navigate = useNavigate();
 
   const Viewproduct = (item) => {
     navigate("/view-product", { state: { product: item } });
+  };
+
+  const navigatetopages = () => {
+    data?.map((item) => {
+      item.category === "tshirt"
+        ? navigate("/colleaction/tshirt")
+        : navigate("/colleaction/hoodies");
+    });
   };
 
   return (
@@ -49,7 +56,16 @@ const Container5 = ({ data }) => {
           })}
         </div>
         <div className="d-flex justify-content-center">
-          <span role="button" className="fw-semibold btn_bg ">
+          <span
+            onClick={
+              navigatetopages
+              // item.category === "tshirt"
+              //   ? navigate("/colleaction/tshirt")
+              //   : navigate("/colleaction/hoodies")
+            }
+            role="button"
+            className="fw-semibold btn_bg "
+          >
             View all
           </span>
         </div>

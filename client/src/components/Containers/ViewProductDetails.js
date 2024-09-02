@@ -14,7 +14,6 @@ const ViewProductDetails = () => {
   const context = useContext(CartContex);
 
   const [singleProduct, setsingleProduct] = useState({});
-  const [Product, setProduct] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [inputvalue, setInputvalue] = useState({
     color: "",
@@ -49,21 +48,22 @@ const ViewProductDetails = () => {
       try {
         const data = await BaseApi.get("/product/get");
         if (data.status === 200) {
-          setProduct(data.data.result);
+          const products = data.data.result;
+          const filtered = products?.filter(
+            (item) =>
+              item.category === singleProduct.category &&
+              item._id !== singleProduct._id
+          );
+          setFilteredProducts(filtered);
         }
       } catch (error) {
         console.log(error);
       }
     };
-    getdata();
-  }, []);
-
-  useEffect(() => {
-    if (singleProduct && Product.length > 0) {
-      const filtered = Product.filter((item) => item._id !== singleProduct._id);
-      setFilteredProducts(filtered);
+    if (singleProduct?.category) {
+      getdata();
     }
-  }, [singleProduct, product]);
+  }, [singleProduct]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -73,8 +73,6 @@ const ViewProductDetails = () => {
     context.addTocart({ ...singleProduct, ...inputvalue });
     window.scrollTo(0, 0);
   };
-
-  // console.log("value-----", inputvalue);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

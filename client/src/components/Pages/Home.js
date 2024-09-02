@@ -21,12 +21,18 @@ import axios from "axios";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CartContex } from "../../contexts/Context";
 import { BaseApi, imgApi } from "../../api/BaseApi";
+import Loader from "../Containers/Loader";
 
 const Home = () => {
   const navigate = useNavigate();
   const context = useContext(CartContex);
   const [Product, setProduct] = useState([]);
+  const [tshirt, setTshirt] = useState([]);
+  const [hoodie, sethoodie] = useState([]);
+  const [sweatshirts, setsweatshirts] = useState([]);
+  const [polo, setPolo] = useState([]);
   const [latestPro, setLatestPro] = useState({});
+  const [loading, setloading] = useState(false);
 
   const [inputvalue, setInputvalue] = useState({
     color: "",
@@ -34,7 +40,7 @@ const Home = () => {
     quantity: 1,
   });
 
-  // console.log("inputvalue--", inputvalue);
+  console.log("inputvalue--", inputvalue);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,14 +58,31 @@ const Home = () => {
   // console.log("latestPro---", latestPro);
 
   const getdata = async () => {
+    setloading(true);
     try {
       const data = await BaseApi.get("/product/get");
       // console.log("data", data);
+
       if (data.status == 200) {
-        setProduct(data.data.result);
+        const products = data.data.result;
+        const tshirts = products?.filter((item) => item.category === "tshirt");
+        const hoodies = products?.filter((item) => item.category === "hoodies");
+        const setsweatshirt = products?.filter(
+          (item) => item.category === "setsweatshirts"
+        );
+        const polos = products?.filter((item) => item.category === "polos");
+        setProduct(products);
+        setTshirt(tshirts);
+        sethoodie(hoodies);
+        setPolo(polos);
+        setsweatshirts(setsweatshirt);
+        setloading(false);
       }
     } catch (error) {
-      console.log(error);
+      setloading(false);
+      console.log("home-product-data----", error);
+    } finally {
+      setloading(false);
     }
   };
 
@@ -119,11 +142,15 @@ const Home = () => {
         <div className="container-lg py-4">
           <div className="row row-cols-1 row-cols-md-2 my-3">
             <div className="cart-parent-container">
-              <img
-                src={`${imgApi}${latestPro.Img}`}
-                alt="person in t-shirt"
-                className=" rounded-3 img-fluid cart-child-image "
-              />
+              {loading ? (
+                <Loader />
+              ) : (
+                <img
+                  src={`${imgApi}${latestPro.Img}`}
+                  alt="person in t-shirt"
+                  className=" rounded-3 img-fluid cart-child-image "
+                />
+              )}
             </div>
             <div>
               <span className="text-uppercase fw-semibold realhit py-2 d-block">
@@ -250,7 +277,8 @@ const Home = () => {
         {/*------------------- Main_Banner_GIF end----------------------- */}
 
         {/*------------------t-shirt container start------------ */}
-        <Container5 data={Product} />
+        {loading ? <Loader /> : <Container5 data={tshirt} />}
+
         {/*------------------t-shirt container end------------ */}
 
         {/*------------------- secound_GIF start----------------------- */}
@@ -258,7 +286,7 @@ const Home = () => {
         {/*------------------- secound_GIF end----------------------- */}
 
         {/*------------------secound t-shirt container start------------ */}
-        <Container4 />
+        {loading ? <Loader /> : <Container4 data={polo} />}
         {/*------------------secound t-shirt container end------------ */}
 
         {/*------------------- third_GIF start----------------------- */}
@@ -266,7 +294,7 @@ const Home = () => {
         {/*------------------- third_GIF end----------------------- */}
 
         {/*------------------Hoddie container start------------ */}
-        <Container5 data={Product} />
+        {loading ? <Loader /> : <Container5 data={hoodie} />}
         {/*------------------Hoddie container end------------ */}
 
         {/*------------------- fourth_GIF start----------------------- */}
@@ -274,7 +302,8 @@ const Home = () => {
         {/*------------------- fourth_GIF end----------------------- */}
 
         {/*------------------sweatshirts container start------------ */}
-        <Container4 />
+
+        {loading ? <Loader /> : <Container4 data={sweatshirts} />}
         {/*------------------sweatshirts container end------------ */}
       </main>
     </>

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { getProductData } from "../utils/localStorageHelper";
 
 const UserRoutes = () => {
-  const { userDetails, Tokenlocal } = useContext(LoginContex);
+  const { userDetails, Tokenlocal, setFormState } = useContext(LoginContex);
 
   const navigate = useNavigate();
   const [isAllowed, setIsAllowed] = useState(null); // State to manage route access
@@ -16,6 +16,7 @@ const UserRoutes = () => {
 
     if (!Tokenlocal) {
       toast.warning("Please Login first user!");
+      setFormState("/login");
       navigate("/login");
     } else if (Tokenlocal && userDetails?.usertype !== "user") {
       navigate("/not-authorized");
