@@ -27,8 +27,17 @@ app.use("/product", ProductRoutes);
 app.use("/user", UserRoutes);
 app.use("/review", ReviewRoutes);
 
+
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 // Serve static files from the uploads directory
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+
+// fallback to serve your React application's index.html------
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 //port------------------------
 connectdb()
