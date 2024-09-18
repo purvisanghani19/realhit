@@ -26,7 +26,7 @@ To run this project locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/purvisanghani19/photography-portfolio.git
+   git clone git@github.com:purvisanghani19/realhit.git
 
 2. Install dependencies for both the client and server:
    ```bash
@@ -38,7 +38,7 @@ To run this project locally, follow these steps:
 3. Run the app:
    ```bash
    # Run server
-   npm run server
+   nodemon or nodemon index.js
 
    # Run client
    cd client
@@ -47,6 +47,6 @@ To run this project locally, follow these steps:
 4. Open your browser and go to http://localhost:3000.
 
 ## 📧 Contact
-Feel free to reach out for questions or collaboration:
+If you have any suggestions for how to improve this website, the ReadMe guide, etc. please don't hesitate to reach out -- I will always happily accept constructive feedback!
 - purvisanghani1@gmail.com | [LinkdIn](https://www.linkedin.com/in/purvi-sanghani/)
 

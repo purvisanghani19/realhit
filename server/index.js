@@ -32,7 +32,7 @@ app.use("/review", ReviewRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
-app.use(express.static(path.join(__dirname,'..',  'client/build')));
+// app.use(express.static(path.join(__dirname,'..',  'client/build')));
 
 
 // fallback to serve your React application's index.html------
