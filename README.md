@@ -48,5 +48,5 @@ To run this project locally, follow these steps:
 
 ## 📧 Contact
 Feel free to reach out for questions or collaboration:
-- purvisanghani1@gmail.com | [LinkdIn](www.linkedin.com/in/purvi-sanghani)
+- purvisanghani1@gmail.com | [LinkdIn](https://www.linkedin.com/in/purvi-sanghani/)
 

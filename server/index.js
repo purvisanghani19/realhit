@@ -14,13 +14,13 @@ const app = express();
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(
-  cors({
-    // origin: "http://localhost:3000", // or your frontend's URL
-    origin: "https://realhit.onrender.com", // or your frontend's URL
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     // origin: "http://localhost:3000", // or your frontend's URL
+//     origin: "https://realhit.onrender.com", // or your frontend's URL
+//     credentials: true,
+//   })
+// );
 
 //routes---------------------------------
 app.use("/product", ProductRoutes);
@@ -28,16 +28,20 @@ app.use("/user", UserRoutes);
 app.use("/review", ReviewRoutes);
 
 
-app.use(express.static(path.join(__dirname, 'client/build')));
-
 // Serve static files from the uploads directory
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
+app.use(express.static(path.join(__dirname,'..',  'client/build')));
+
+
 // fallback to serve your React application's index.html------
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
 });
+
+
+
 
 //port------------------------
 connectdb()
